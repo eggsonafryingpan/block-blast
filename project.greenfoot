@@ -1,6 +1,6 @@
 #Greenfoot project file
-class.Block.image=Block.png
-class.Square.image=square.png
+class.Block.image=square.png
+class.Shadow.image=Block.png
 dependency1.from=MyWorld
 dependency1.to=Block
 dependency1.type=UsesDependency
@@ -33,7 +33,7 @@ target1.width=120
 target1.x=0
 target1.y=0
 target2.height=70
-target2.name=Square
+target2.name=Shadow
 target2.showInterface=false
 target2.type=ClassTarget
 target2.width=120
@@ -48,5 +48,6 @@ target3.x=0
 target3.y=0
 version=3.1.0
 width=1550
+world.lastInstantiated=MyWorld
 xPosition=0
 yPosition=0

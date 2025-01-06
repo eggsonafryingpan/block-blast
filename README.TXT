@@ -6,7 +6,7 @@ all they need to know. The comments should usually include at least:
 
 PROJECT TITLE: Block Blast
 PURPOSE OF PROJECT:
-VERSION or DATE:
+VERSION or DATE: v1
 HOW TO START THIS PROJECT:
 AUTHORS:
 USER INSTRUCTIONS:

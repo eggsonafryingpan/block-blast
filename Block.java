@@ -13,7 +13,16 @@ public class Block extends Actor
      * Act - do whatever the Block wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    public Block() {
+        GreenfootImage image = getImage();
+        image.scale((int)(image.getWidth() * 0.8), (int)(image.getHeight() * 0.8)); 
+    }
     public void act()
     {
+     if (Greenfoot.mouseDragged(this)){
+         if (!Greenfoot.mouseDragEnded(Block.class)){
+             setLocation(Greenfoot.getMouseInfo().getX(),Greenfoot.getMouseInfo().getY());
+            }
+        }
     }
 }

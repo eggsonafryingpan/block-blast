@@ -31,7 +31,7 @@ public class MyWorld extends World
     public MyWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(112,154, 5); 
+        super(154,112, 5); 
         //70 pixels for board
         
         for (int i = 0; i < 64; i++) {

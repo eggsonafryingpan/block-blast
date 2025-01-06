@@ -50,6 +50,7 @@ public class MyWorld extends World
     public void act() {
         load();
         square(4,0);
+        square(6,6);
     }
         
 }

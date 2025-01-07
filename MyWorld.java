@@ -38,7 +38,7 @@ public class MyWorld extends World
         for (int i = 0; i < 64; i++) {
             list.add(0); 
         }
-        addObject(new Shadow(),500,300);
+        addObject(new Preview(),500,300);
         //addObject(new Block(),list.get(0),list.get(1))
                 
 

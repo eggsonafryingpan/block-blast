@@ -14,15 +14,14 @@ public class Block extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public Block() {
-        GreenfootImage image = getImage();
-        image.scale((int)(image.getWidth() * 0.8), (int)(image.getHeight() * 0.8)); 
+        //GreenfootImage image = getImage();
+        //image.scale((int)(image.getWidth() * 0.8), (int)(image.getHeight() * 0.8)); 
     }
     public void act()
     {
-     if (Greenfoot.mouseDragged(this)){
-         if (!Greenfoot.mouseDragEnded(Block.class)){
-             setLocation(Greenfoot.getMouseInfo().getX(),Greenfoot.getMouseInfo().getY());
-            }
+        if (Preview.gridX < 8) {
+            setLocation(Preview.gridX * 80 + 40,Preview.gridY * 80 + 40);
         }
     }
+ 
 }

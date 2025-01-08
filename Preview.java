@@ -27,18 +27,20 @@ public class Preview extends Actor
         img = getImage();
         imgWidth = img.getWidth();
         imgHeight = img.getHeight();
+        this.startX = startX;
+        this.startY = startY;
         img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 
     }
     public void drag() {
         if (Greenfoot.mouseDragged(this)){
             img.scale(imgWidth, imgHeight); 
-             setLocation(Greenfoot.getMouseInfo().getX() - imgWidth,Greenfoot.getMouseInfo().getY() - imgHeight);
+            setLocation(Greenfoot.getMouseInfo().getX() - 60,Greenfoot.getMouseInfo().getY() - 60);
         } 
         else if (Greenfoot.mouseDragEnded(this)) {
             if (gridX < 8 - (img.getWidth() / 160)) {
                 drop();
             }
-            setLocation(800,400);
+            setLocation(startX,startY);
             img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 
         }
     }

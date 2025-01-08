@@ -10,29 +10,28 @@ public class Preview extends Actor
 {
     static int gridX;
     static int gridY;
-    /**
-     * Act - do whatever the Shadow wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public Preview() {
-        GreenfootImage image = getImage();
-        image.scale((int)(image.getWidth() * 0.8), (int)(image.getHeight() * 0.8));
-        two();
+    static int x;
+    static int y;
+    public GreenfootImage image;
+    public Preview(String block) {
+        if (block.equals("two")) {
+            setImage(new GreenfootImage("two.png"));
+        }
+        image = getImage();
     }
     public void drag() {
         if (Greenfoot.mouseDragged(this)){
-         if (!Greenfoot.mouseDragEnded(Block.class)){
-             setLocation(Greenfoot.getMouseInfo().getX(),Greenfoot.getMouseInfo().getY());
-            }
+
+             setLocation(Greenfoot.getMouseInfo().getX() - 80,Greenfoot.getMouseInfo().getY() - 80);
+        } else if (Greenfoot.mouseDragEnded(this)) {
+            setLocation(800,400);
         }
     }
-    public void two() {
-        Preview two1 = new Preview();
-        getWorld().addObject(two1, getX() + 80, getY() +80);
-    }
+
     public void act()
     {
-        
+        x = getX() - image.getWidth() / 2;
+        y = getY() - image.getHeight() / 2;
         gridX = (int)((getX()) / 80);
         gridY = (int)((getY()) / 80);
         drag();

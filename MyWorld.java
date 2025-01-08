@@ -34,11 +34,12 @@ public class MyWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(80 * 11,80 * 8, 1); 
         //70 pixels for board
+        setPaintOrder(Preview.class,Block.class); //Class order
         
         for (int i = 0; i < 64; i++) {
             list.add(0); 
         }
-        addObject(new Preview(),500,300);
+        addObject(new Preview("two"),500,300);
         //addObject(new Block(),list.get(0),list.get(1))
                 
 

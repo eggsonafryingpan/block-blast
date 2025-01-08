@@ -18,9 +18,12 @@ public class Block extends Actor
         //image.scale((int)(image.getWidth() * 0.8), (int)(image.getHeight() * 0.8)); 
     }
     public void act()
-    {
+    {   
         if (Preview.gridX < 8) {
+            setImage(new GreenfootImage("shadow.png"));
             setLocation(Preview.gridX * 80 + 40,Preview.gridY * 80 + 40);
+        } else {
+            setImage(new GreenfootImage("clear.png"));
         }
     }
  

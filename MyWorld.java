@@ -43,7 +43,7 @@ public class MyWorld extends World
         for (int i = 0; i < 64; i++) {
             grid.add(0); 
         }
-        addObject(new Preview("two"),500,300);
+        addObject(new Preview("two", 800,300),800,300);
         addObject(new Shadow("two"),0,0);
     }
     public void act() {

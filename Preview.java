@@ -11,13 +11,15 @@ public class Preview extends Actor
 {
     static int gridX;
     static int gridY;
+    int startX;
+    int startY;
     static int x;
     static int y;
     int imgWidth;
     int imgHeight;
     public static String block;
     GreenfootImage img;
-    public Preview(String block) {
+    public Preview(String block,int startX, int startY) {
         if (block.equals("two")) {
             setImage(new GreenfootImage("two.png"));
         }
@@ -25,6 +27,7 @@ public class Preview extends Actor
         img = getImage();
         imgWidth = img.getWidth();
         imgHeight = img.getHeight();
+        img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 
     }
     public void drag() {
         if (Greenfoot.mouseDragged(this)){
@@ -34,7 +37,6 @@ public class Preview extends Actor
         else if (Greenfoot.mouseDragEnded(this)) {
             if (gridX < 8 - (img.getWidth() / 160)) {
                 drop();
-
             }
             setLocation(800,400);
             img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class MyWorld extends World
 {
-    public static ArrayList<Integer> grid = new ArrayList<Integer>();
+    public static ArrayList<Integer> grid; 
     public void addBlock(int x, int y) {
         grid.set(x + y * 8, 1);
     }
@@ -38,6 +38,7 @@ public class MyWorld extends World
     {    
         super(80 * 11,80 * 8, 1); 
         //80 pixels for board
+        grid = new ArrayList<Integer>();
         setPaintOrder(Preview.class,Block.class,Shadow.class); //Class order
         for (int i = 0; i < 64; i++) {
             grid.add(0); 

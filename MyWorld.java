@@ -53,6 +53,7 @@ public class MyWorld extends World
         addBlock(x+1,y+1);
     }
     public void act() {
+
         removeObjects(getObjects(Block.class));
         load();
     }

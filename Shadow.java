@@ -30,7 +30,7 @@ public class Shadow extends Actor
         //setting shadow under Preview block
         if (Preview.gridX <= 8 - (img.getWidth() / 80) && Preview.checkFit()) {
             setImage(img);
-            setLocation((Preview.gridX * 80) + img.getWidth() / 2,(Preview.gridY * 80) + img.getHeight() / 2);
+            setLocation((Preview.gridX * 80) + img.getWidth() / 2,(Preview.gridY * 80) + img.getHeight() / 2 + 1);
         } else {
             hide();
         }

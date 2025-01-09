@@ -33,7 +33,7 @@ public class Preview extends Actor
     public void drag() {
         if (Greenfoot.mouseDragged(this)){
             img.scale(imgWidth, imgHeight); 
-            setLocation(Greenfoot.getMouseInfo().getX() - 60,Greenfoot.getMouseInfo().getY() - 60);
+            setLocation(Greenfoot.getMouseInfo().getX() - 120,Greenfoot.getMouseInfo().getY());
         } 
         else if (Greenfoot.mouseDragEnded(this)) {
             if (gridX < 8 - (img.getWidth() / 160)) {
@@ -52,21 +52,18 @@ public class Preview extends Actor
     }
     public static boolean checkFit() {
         if (Preview.block.equals("two")) {
-            if (checkSq(0,0)) {
-                if (checkSq(1,0)) {
-                    return true;
-                }
+            if (checkSq(0,0) && checkSq(1,0)) {
+                return true;
             }
         }
         if (Preview.block.equals("reverseT")) {
-            if (checkSq(1,0)) {
-                if (checkSq(0,1)) {
-                    if (checkSq(1,1)) {
-                        if (checkSq(2,1)) {
-                            return true;
-                        }
-                    }
-                }
+            if (checkSq(1,0) && checkSq(0,1) && checkSq(1,1) &&checkSq(2,1)) {
+                return true;
+            }
+        }
+        if (Preview.block.equals("horizontal4")) {
+            if (checkSq(0,0) && checkSq(1,0) && checkSq(3,0) &&checkSq(3,0)) {
+                return true;
             }
         }
         return false;
@@ -82,6 +79,13 @@ public class Preview extends Actor
             MyWorld.grid.set(gridX + 1 + (gridY + 1) * 8,1);
             MyWorld.grid.set(gridX + 2 + (gridY + 1) * 8,1);
         }
+        if (block.equals("horizontal4")) {
+            MyWorld.grid.set(gridX + gridY * 8,1);
+            MyWorld.grid.set(gridX + 1  +(gridY) * 8,1);
+            MyWorld.grid.set(gridX + 2 + (gridY) * 8,1);
+            MyWorld.grid.set(gridX + 3 + (gridY) * 8,1);
+        }
+
     }
     public void drop() {
         if (checkFit()) {
@@ -95,8 +99,8 @@ public class Preview extends Actor
     {
         x = getX() - img.getWidth() / 2;
         y = getY() - img.getHeight() / 2;
-        gridX = (int)((getX() - 40) / 80);
-        gridY = (int)((getY() - 40) / 80);
+        gridX = (int)(((getX() - 40) / 80) - 1);
+        gridY = (int)(((getY() - 40) / 80));
         getWorld().showText("" + x + " " + y, 200, 100);
         getWorld().showText("" + gridX + " " + gridY, 100,100);
         drag();

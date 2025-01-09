@@ -1,12 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 import java.util.List;
-/**
- * Write a description of class Shadow here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class Preview extends Actor
 {
     static int gridX;
@@ -17,7 +11,7 @@ public class Preview extends Actor
     static int y;
     int imgWidth;
     int imgHeight;
-    public static String block; //kind of block
+    public static String block; //# kind of block
     GreenfootImage img;
     public Preview(String block, int x, int y) {
         setImage(new GreenfootImage("" + block + ".png"));
@@ -43,13 +37,14 @@ public class Preview extends Actor
             img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 
         }
     }
-    //check free square for check Fit
+    //# check free square for check Fit
     public static boolean checkSq(int x, int y) {
         if (gridX + x + (gridY + y) * 8 < 64) {
             return MyWorld.grid.get(gridX + x + (gridY + y) * 8) == 0;
         }
         return false;
     }
+    //# check if a block can fit
     public static boolean checkFit() {
         if (Preview.block.equals("two")) {
             if (checkSq(0,0) && checkSq(1,0)) {
@@ -68,6 +63,7 @@ public class Preview extends Actor
         }
         return false;
     }
+    //#adding blocks to grid
     public void setGrid() {
         if (block.equals("two")) {
             MyWorld.grid.set(gridX + gridY * 8,1);
@@ -91,10 +87,9 @@ public class Preview extends Actor
         if (checkFit()) {
             setGrid();
         }
-        //removeTouching(Shadow.class);
-        //getWorld().removeObject(this);
+        removeTouching(Shadow.class);
+        getWorld().removeObject(this);
     }
-
     public void act()
     {
         x = getX() - img.getWidth() / 2;

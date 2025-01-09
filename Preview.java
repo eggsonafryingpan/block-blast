@@ -17,6 +17,7 @@ public class Preview extends Actor
     static int y;
     int imgWidth;
     int imgHeight;
+    
     public static String block; //kind of block
     GreenfootImage img;
     public Preview(String block, int x, int y) {

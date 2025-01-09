@@ -18,8 +18,19 @@ public class MyWorld extends World
         for (int i = 0; i < 64; i++) {
             grid.add(0); 
         }
-        addObject(new Preview("two", 800,300),800,300);
-        addObject(new Shadow("two"),0,0);
+        addHorizontal4();
+    }
+    public void addTwo() {
+        addObject(new Preview("two",800,300),800,300);
+        addObject(new Shadow("two"),800,300);
+    }
+    public void addHorizontal4() {
+        addObject(new Preview("horizontal4",800,300),800,300);
+        addObject(new Shadow("horizontal4"),800,300);
+    }
+    public void addReverseT() {
+        addObject(new Preview("reverseT",800,300),800,300);
+        addObject(new Shadow("reverseT"),800,100);
     }
     
     public void addBlock(int x, int y) {

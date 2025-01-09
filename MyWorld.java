@@ -1,12 +1,6 @@
 import greenfoot.*;  
 import java.util.ArrayList;
 import java.util.List;
-/**
- * Write a description of class MyWorld here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class MyWorld extends World
 {
     public static ArrayList<Integer> grid; //64 number array representing grid
@@ -20,6 +14,8 @@ public class MyWorld extends World
         }
         addHorizontal4();
     }
+    
+    //#add block methods
     public void addTwo() {
         addObject(new Preview("two",800,300),800,300);
         addObject(new Shadow("two"),800,300);
@@ -37,6 +33,7 @@ public class MyWorld extends World
         grid.set(x + y * 8, 1);
     }
     
+    //#make blocks on the board
     public void load() {
         for (int i = 0; i < 8; i++) {
             for (int k = 0; k < 8; k++){
@@ -91,10 +88,10 @@ public class MyWorld extends World
         }
     }
     public void act() {
-        clearHorizontal();
-        clearVertical();
-        removeObjects(getObjects(Block.class));
-        load();
+        clearHorizontal(); //check if column is full
+        clearVertical(); //check if column is full
+        removeObjects(getObjects(Block.class)); //clear the screen each act
+        load(); // reload the screen each act
     }
         
 }

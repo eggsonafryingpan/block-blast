@@ -1,6 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 public class Preview extends Actor
 {
     static int gridX;
@@ -11,11 +12,21 @@ public class Preview extends Actor
     static int y;
     int imgWidth;
     int imgHeight;
-    public static String block; //# kind of block
     GreenfootImage img;
+    public static ArrayList<Integer> horizontal4 = new ArrayList<Integer>(Arrays.asList(0,1,2,3));
+    public static ArrayList<Integer> block = new ArrayList<Integer>();
+    //# check if a block can fit
+    public static boolean checkFit(ArrayList block) {
+        for (int i = 0; i< block.size(); i++) {
+            if (!checkSqr(block.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
     public Preview(String block, int x, int y) {
+        block = horizontal4;
         setImage(new GreenfootImage("" + block + ".png"));
-        this.block = block;
         img = getImage();
         imgWidth = img.getWidth();
         imgHeight = img.getHeight();
@@ -38,33 +49,36 @@ public class Preview extends Actor
         }
     }
     //# check free square for check Fit
-    public static boolean checkSq(int x, int y) {
-        if (gridX + x + (gridY + y) * 8 < 64) {
-            return MyWorld.grid.get(gridX + x + (gridY + y) * 8) == 0;
+    public static boolean checkSqr(int n) {
+        if (gridX + n < 64 && gridX >= 0) {
+            return MyWorld.grid.get(gridX + n) == 0;
         }
         return false;
     }
-    //# check if a block can fit
-    public static boolean checkFit() {
-        if (Preview.block.equals("two")) {
-            if (checkSq(0,0) && checkSq(1,0)) {
-                return true;
-            }
-        }
-        if (Preview.block.equals("reverseT")) {
-            if (checkSq(1,0) && checkSq(0,1) && checkSq(1,1) &&checkSq(2,1)) {
-                return true;
-            }
-        }
-        if (Preview.block.equals("horizontal4")) {
-            if (checkSq(0,0) && checkSq(1,0) && checkSq(3,0) &&checkSq(3,0)) {
-                return true;
-            }
-        }
+    
+    public static boolean checkFit1() { //delete later
+        //if (Preview.block.equals("two")) {
+            //if (checkSq(0,0) && checkSq(1,0)) {
+                //return true;
+            //}
+        //}
+        //if (Preview.block.equals("reverseT")) {
+            //if (checkSq(1,0) && checkSq(0,1) && checkSq(1,1) &&checkSq(2,1)) {
+                //return true;
+            //}
+        //}
+        //if (Preview.block.equals("horizontal4")) {
+            //if (checkSq(0,0) && checkSq(1,0) && checkSq(3,0) &&checkSq(3,0)) {
+                //return true;
+            //}
+        //}
         return false;
     }
     //#adding blocks to grid
-    public void setGrid() {
+    public void setGrid(ArrayList block) {
+        for (int i = 0; i<block.size(); i++) {
+            MyWorld.grid.set(gridX + block.get(i),1);
+        }
         if (block.equals("two")) {
             MyWorld.grid.set(gridX + gridY * 8,1);
             MyWorld.grid.set(gridX + 1 + (gridY + 0) * 8,1);
@@ -84,11 +98,11 @@ public class Preview extends Actor
 
     }
     public void drop() {
-        if (checkFit()) {
+        if (checkFit(block)) {
             setGrid();
         }
-        removeTouching(Shadow.class);
-        getWorld().removeObject(this);
+        //removeTouching(Shadow.class);
+        //getWorld().removeObject(this);
     }
     public void act()
     {

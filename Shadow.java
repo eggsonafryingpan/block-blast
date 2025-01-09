@@ -18,9 +18,8 @@ public class Shadow extends Actor
     GreenfootImage img; 
     public Shadow(String block) {
         //changing the image
-        if (block.equals("two")){
-            img = new GreenfootImage("twoShadow.png");
-        }
+        img = new GreenfootImage(block + "Shadow.png");
+        
     }
     public void hide() {
         setImage(new GreenfootImage("clear.png"));
@@ -29,7 +28,7 @@ public class Shadow extends Actor
     public void act()
     {   
         //setting shadow under Preview block
-        if (Preview.gridX < 8 - (img.getWidth() / 160) && Preview.checkFit()) {
+        if (Preview.gridX <= 8 - (img.getWidth() / 80) && Preview.checkFit()) {
             setImage(img);
             setLocation((Preview.gridX * 80) + img.getWidth() / 2,(Preview.gridY * 80) + img.getHeight() / 2);
         } else {

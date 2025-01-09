@@ -11,25 +11,24 @@ public class Preview extends Actor
 {
     static int gridX;
     static int gridY;
-    int startX;
-    int startY;
+    int startX; // position on the tray
+    int startY; // position on the tray
     static int x;
     static int y;
     int imgWidth;
     int imgHeight;
-    public static String block;
+    public static String block; //kind of block
     GreenfootImage img;
-    public Preview(String block,int startX, int startY) {
-        if (block.equals("two")) {
-            setImage(new GreenfootImage("two.png"));
-        }
+    public Preview(String block, int x, int y) {
+        setImage(new GreenfootImage("" + block + ".png"));
         this.block = block;
         img = getImage();
         imgWidth = img.getWidth();
         imgHeight = img.getHeight();
-        this.startX = startX;
-        this.startY = startY;
+        this.startX = x;
+        this.startY = y;
         img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 
+        
     }
     public void drag() {
         if (Greenfoot.mouseDragged(this)){
@@ -44,11 +43,29 @@ public class Preview extends Actor
             img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 
         }
     }
+    //check free square for check Fit
+    public static boolean checkSq(int x, int y) {
+        if (gridX + x + (gridY + y) * 8 < 64) {
+            return MyWorld.grid.get(gridX + x + (gridY + y) * 8) == 0;
+        }
+        return false;
+    }
     public static boolean checkFit() {
         if (Preview.block.equals("two")) {
-            if (MyWorld.grid.get(gridX + gridY * 8) == 0) {
-                if (MyWorld.grid.get(gridX + 1 +gridY * 8) == 0) {
+            if (checkSq(0,0)) {
+                if (checkSq(1,0)) {
                     return true;
+                }
+            }
+        }
+        if (Preview.block.equals("reverseT")) {
+            if (checkSq(1,0)) {
+                if (checkSq(0,1)) {
+                    if (checkSq(1,1)) {
+                        if (checkSq(2,1)) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
@@ -57,7 +74,13 @@ public class Preview extends Actor
     public void setGrid() {
         if (block.equals("two")) {
             MyWorld.grid.set(gridX + gridY * 8,1);
+            MyWorld.grid.set(gridX + 1 + (gridY + 0) * 8,1);
+        }
+        if (block.equals("reverseT")) {
             MyWorld.grid.set(gridX + 1 + gridY * 8,1);
+            MyWorld.grid.set(gridX + (gridY + 1) * 8,1);
+            MyWorld.grid.set(gridX + 1 + (gridY + 1) * 8,1);
+            MyWorld.grid.set(gridX + 2 + (gridY + 1) * 8,1);
         }
     }
     public void drop() {

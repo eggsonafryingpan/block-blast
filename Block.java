@@ -1,6 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.ArrayList;
-import java.util.List;
+
 /**
  * Write a description of class Block here.
  * 
@@ -13,16 +12,13 @@ public class Block extends Actor
      * Act - do whatever the Block wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public Block() {
-        GreenfootImage image = getImage();
-        image.scale((int)(image.getWidth() * 0.8), (int)(image.getHeight() * 0.8)); 
+    public void checkGrid() {
+        if (MyWorld.grid.get((int)(getX() / 80) + (int)(getY() / 80) * 8) == 0) {
+            getWorld().removeObject(this);
+        }
     }
     public void act()
     {
-     if (Greenfoot.mouseDragged(this)){
-         if (!Greenfoot.mouseDragEnded(Block.class)){
-             setLocation(Greenfoot.getMouseInfo().getX(),Greenfoot.getMouseInfo().getY());
-            }
-        }
+        // Add your action code here.
     }
 }

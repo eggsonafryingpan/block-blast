@@ -18,7 +18,7 @@ public class Preview extends Actor
     //# check if a block can fit
     public static boolean checkFit(ArrayList block) {
         for (int i = 0; i< block.size(); i++) {
-            if (!checkSqr(block.get(i))) {
+            if (!checkSqr((int)(block.get(i)))) {
                 return false;
             }
         }
@@ -77,7 +77,7 @@ public class Preview extends Actor
     //#adding blocks to grid
     public void setGrid(ArrayList block) {
         for (int i = 0; i<block.size(); i++) {
-            MyWorld.grid.set(gridX + block.get(i),1);
+            MyWorld.grid.set(gridX + (int)(block.get(i)),1);
         }
         if (block.equals("two")) {
             MyWorld.grid.set(gridX + gridY * 8,1);

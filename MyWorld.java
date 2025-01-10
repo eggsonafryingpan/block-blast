@@ -5,9 +5,16 @@ import java.util.Arrays;
 public class MyWorld extends World
 {   
     //# block data
-    static ArrayList<Integer> horizontal4 = new ArrayList<Integer>(Arrays.asList(0,1,2,3));
-    static ArrayList<Integer> tUp = new ArrayList<Integer>(Arrays.asList(0,1,2,9));
-    
+    static ArrayList<Integer> horizontal4 = new ArrayList<Integer>(Arrays.asList(0,1,2,3)); // numbers added to top left block to create block
+    static ArrayList<Integer> tUp = new ArrayList<Integer>(Arrays.asList(0,1,2,9)); // change in y is adding 8
+    //  0  1  2  (3) ... up to (7)
+    // (8) 9 (10) ... up to (15)
+    //the tUp looks like this basically
+    //XXX   like this where the X is a square and O is emtpy
+    //OXO
+    //the numbers without perenthesis is the block itself
+    //the array goes up to 7
+    //so you go to the next row with adding 8
     public static ArrayList<Integer> grid; //64 number array representing grid
     public MyWorld() {    
         super(80 * 11,80 * 8, 1); 

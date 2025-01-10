@@ -1,8 +1,13 @@
 import greenfoot.*;  
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 public class MyWorld extends World
-{
+{   
+    //# block data
+    static ArrayList<Integer> horizontal4 = new ArrayList<Integer>(Arrays.asList(0,1,2,3));
+    static ArrayList<Integer> tUp = new ArrayList<Integer>(Arrays.asList(0,1,2,9));
+    
     public static ArrayList<Integer> grid; //64 number array representing grid
     public MyWorld() {    
         super(80 * 11,80 * 8, 1); 
@@ -12,23 +17,10 @@ public class MyWorld extends World
         for (int i = 0; i < 64; i++) {
             grid.add(0); 
         }
-        addHorizontal4();
+        addHorizontal4("DBlue blocks");
     }
     
-    //#add block methods
-    public void addTwo() {
-        addObject(new Preview("two",800,300),800,300);
-        addObject(new Shadow("two"),800,300);
-    }
-    public void addHorizontal4() {
-        addObject(new Preview("horizontal4",800,300),800,300);
-        addObject(new Shadow("horizontal4"),800,300);
-    }
-    public void addReverseT() {
-        addObject(new Preview("reverseT",800,300),800,300);
-        addObject(new Shadow("reverseT"),800,100);
-    }
-    
+    //# setting grid   not using currently
     public void addBlock(int x, int y) {
         grid.set(x + y * 8, 1);
     }
@@ -44,6 +36,7 @@ public class MyWorld extends World
         }
     }
     
+    //#used for clearHorizontal
     public void clearHorizontalRow(int y) {
         for (int x = 0; x<8; x++) {
             grid.set(x + y * 8, 0); 
@@ -66,7 +59,8 @@ public class MyWorld extends World
         }
     }
     
-        public void clearVerticalRow(int x) {
+    //#used for clearVertical
+    public void clearVerticalRow(int x) {
         for (int y = 0; y<8; y++) {
             grid.set(x + y * 8, 0); 
         }
@@ -93,5 +87,17 @@ public class MyWorld extends World
         removeObjects(getObjects(Block.class)); //clear the screen each act
         load(); // reload the screen each act
     }
+    //#add block methods
+    
+    public void addHorizontal4(String color) {
+        addObject(new Preview(horizontal4, color + "/horizontal4",800,300),800,300);
+        addObject(new Shadow("" + color + "/horizontal4"),800,300);
+    }
+    public void addTUp(String color) {
+         addObject(new Preview(tUp, color + "/tUp",800,300),800,300);
+        addObject(new Shadow("" + color + "/tUp"),800,300);
+    }
+
+
         
 }

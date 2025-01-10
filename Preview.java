@@ -44,7 +44,7 @@ public class Preview extends Actor
     
     //# check free square for check Fit
     public static boolean checkSqr(int n) {
-        if (gridX + n < 64 && gridX >= 0) {
+        if (gridX + gridY * 8 + n < 64 && gridX >= 0) {
             return MyWorld.grid.get(gridX + gridY * 8 + n) == 0;
         }
         return false;

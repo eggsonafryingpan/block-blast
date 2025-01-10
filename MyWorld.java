@@ -15,6 +15,7 @@ public class MyWorld extends World
     //the numbers without perenthesis is the block itself
     //the array goes up to 7
     //so you go to the next row with adding 8
+    //#current bug: cannot add two blocks at once - will fix
     public static ArrayList<Integer> grid; //64 number array representing grid
     public MyWorld() {    
         super(80 * 11,80 * 8, 1); 
@@ -24,7 +25,8 @@ public class MyWorld extends World
         for (int i = 0; i < 64; i++) {
             grid.add(0); 
         }
-        addHorizontal4("DBlue blocks");
+        addTUp("DBlue blocks",800,300);
+
     }
     
     //# setting grid   not using currently
@@ -94,15 +96,15 @@ public class MyWorld extends World
         removeObjects(getObjects(Block.class)); //clear the screen each act
         load(); // reload the screen each act
     }
-    //#add block methods
     
-    public void addHorizontal4(String color) {
-        addObject(new Preview(horizontal4, color + "/horizontal4",800,300),800,300);
-        addObject(new Shadow("" + color + "/horizontal4"),800,300);
+    //#add block methods
+    public void addHorizontal4(String color,int x, int y) {
+        addObject(new Preview(horizontal4, color + "/horizontal4",x,y),x,y);
+        addObject(new Shadow("" + color + "/horizontal4"),x,y);
     }
-    public void addTUp(String color) {
-         addObject(new Preview(tUp, color + "/tUp",800,300),800,300);
-        addObject(new Shadow("" + color + "/tUp"),800,300);
+    public void addTUp(String color, int x, int y) {
+         addObject(new Preview(tUp, color + "/tUp",x,y),x,y);
+        addObject(new Shadow("" + color + "/tUp"),x,y);
     }
 
 

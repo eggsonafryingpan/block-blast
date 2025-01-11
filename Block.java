@@ -13,7 +13,7 @@ public class Block extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public Block() {
-        setImage(new GreenfootImage("One Block/Block.png"));
+        setImage(new GreenfootImage("misc/block1.png"));
     }
     public void checkGrid() {
         if (MyWorld.grid.get((int)(getX() / 80) + (int)(getY() / 80) * 8) == 0) {

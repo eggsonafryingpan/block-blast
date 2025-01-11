@@ -9,6 +9,7 @@ public class MyWorld extends World
     static ArrayList<Integer> horizontal5 = new ArrayList<Integer>(Arrays.asList(0,1,2,3,5));
     static ArrayList<Integer> vertical4 = new ArrayList<Integer>(Arrays.asList(0,8,16,32));
     static ArrayList<Integer> vertical5 = new ArrayList<Integer>(Arrays.asList(0,8,16,32,40));
+    static ArrayList<Integer> two = new ArrayList<Integer>(Arrays.asList(0,1));
     static ArrayList<Integer> tUp = new ArrayList<Integer>(Arrays.asList(0,1,2,9)); // change in y is adding 8
     //  0  1  2  (3) ... up to (7)
     // (8) 9 (10) ... up to (15)
@@ -28,7 +29,8 @@ public class MyWorld extends World
         for (int i = 0; i < 64; i++) {
             grid.add(0); 
         }
-        addTUp("DBlue blocks",800,300);
+        //#(data,folder,block name, x, y)
+        addblock(two,"misc","two",800,300);
 
     }
     
@@ -101,9 +103,9 @@ public class MyWorld extends World
     }
     
     //#add block methods
-    public void addHorizontal4(String color,int x, int y) {
-        addObject(new Preview(horizontal4, color + "/horizontal4",x,y),x,y);
-        addObject(new Shadow("" + color + "/horizontal4"),x,y);
+    public void addblock(ArrayList block, String color,String blockName,int x, int y) {
+        addObject(new Preview(block, color + "/" + blockName,x,y),x,y);
+        addObject(new Shadow("" + color + "/" + blockName),x,y);
     }
     public void addTUp(String color, int x, int y) {
          addObject(new Preview(tUp, color + "/tUp",x,y),x,y);

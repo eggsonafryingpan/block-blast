@@ -6,6 +6,9 @@ public class MyWorld extends World
 {   
     //# block data
     static ArrayList<Integer> horizontal4 = new ArrayList<Integer>(Arrays.asList(0,1,2,3)); // numbers added to top left block to create block
+    static ArrayList<Integer> horizontal5 = new ArrayList<Integer>(Arrays.asList(0,1,2,3,5));
+    static ArrayList<Integer> vertical4 = new ArrayList<Integer>(Arrays.asList(0,8,16,32));
+    static ArrayList<Integer> vertical5 = new ArrayList<Integer>(Arrays.asList(0,8,16,32,40));
     static ArrayList<Integer> tUp = new ArrayList<Integer>(Arrays.asList(0,1,2,9)); // change in y is adding 8
     //  0  1  2  (3) ... up to (7)
     // (8) 9 (10) ... up to (15)

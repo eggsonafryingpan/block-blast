@@ -14,27 +14,20 @@ public class Preview extends Actor
     int imgHeight;
     GreenfootImage img;
     public static ArrayList<Integer> horizontal4 = new ArrayList<Integer>(Arrays.asList(0,1,2,3));
-    public static ArrayList<Integer> block = new ArrayList<Integer>();
-    //# check if a block can fit
-    public static boolean checkFit(ArrayList block) {
-        for (int i = 0; i< block.size(); i++) {
-            if (!checkSqr(block.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-    public Preview(String block, int x, int y) {
-        block = horizontal4;
-        setImage(new GreenfootImage("" + block + ".png"));
+    public static ArrayList<Integer> block = new ArrayList<Integer>(Arrays.asList(0,1,2,3));
+
+    
+    public Preview(ArrayList block,String blockName, int x, int y) {
+        this.block = block;
+        setImage(new GreenfootImage("" + blockName + ".png"));
         img = getImage();
         imgWidth = img.getWidth();
         imgHeight = img.getHeight();
         this.startX = x;
         this.startY = y;
         img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 
-        
     }
+    
     public void drag() {
         if (Greenfoot.mouseDragged(this)){
             img.scale(imgWidth, imgHeight); 
@@ -48,61 +41,37 @@ public class Preview extends Actor
             img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 
         }
     }
+    
     //# check free square for check Fit
     public static boolean checkSqr(int n) {
-        if (gridX + n < 64 && gridX >= 0) {
-            return MyWorld.grid.get(gridX + n) == 0;
+        if (gridX + gridY * 8 + n < 64 && gridX >= 0) {
+            return MyWorld.grid.get(gridX + gridY * 8 + n) == 0;
         }
         return false;
     }
-    
-    public static boolean checkFit1() { //delete later
-        //if (Preview.block.equals("two")) {
-            //if (checkSq(0,0) && checkSq(1,0)) {
-                //return true;
-            //}
-        //}
-        //if (Preview.block.equals("reverseT")) {
-            //if (checkSq(1,0) && checkSq(0,1) && checkSq(1,1) &&checkSq(2,1)) {
-                //return true;
-            //}
-        //}
-        //if (Preview.block.equals("horizontal4")) {
-            //if (checkSq(0,0) && checkSq(1,0) && checkSq(3,0) &&checkSq(3,0)) {
-                //return true;
-            //}
-        //}
-        return false;
+    //# check if a block can fit
+    public static boolean checkFit(ArrayList block) {
+        for (int i = 0; i< block.size(); i++) {
+            if (!checkSqr((int)(block.get(i)))) {
+                return false;
+            }
+        }
+        return true;
     }
     //#adding blocks to grid
     public void setGrid(ArrayList block) {
         for (int i = 0; i<block.size(); i++) {
-            MyWorld.grid.set(gridX + block.get(i),1);
+            MyWorld.grid.set(gridX + gridY * 8 + (int)(block.get(i)),1);
+            //getWorld().showText(""+gridX + (int)(block.get(i)),400,100);
         }
-        if (block.equals("two")) {
-            MyWorld.grid.set(gridX + gridY * 8,1);
-            MyWorld.grid.set(gridX + 1 + (gridY + 0) * 8,1);
-        }
-        if (block.equals("reverseT")) {
-            MyWorld.grid.set(gridX + 1 + gridY * 8,1);
-            MyWorld.grid.set(gridX + (gridY + 1) * 8,1);
-            MyWorld.grid.set(gridX + 1 + (gridY + 1) * 8,1);
-            MyWorld.grid.set(gridX + 2 + (gridY + 1) * 8,1);
-        }
-        if (block.equals("horizontal4")) {
-            MyWorld.grid.set(gridX + gridY * 8,1);
-            MyWorld.grid.set(gridX + 1  +(gridY) * 8,1);
-            MyWorld.grid.set(gridX + 2 + (gridY) * 8,1);
-            MyWorld.grid.set(gridX + 3 + (gridY) * 8,1);
-        }
-
     }
+    //#putting blocks onto the grid
     public void drop() {
         if (checkFit(block)) {
-            setGrid();
+            setGrid(block);
         }
-        //removeTouching(Shadow.class);
-        //getWorld().removeObject(this);
+        //removeTouching(Shadow.class); //removes the block 
+        //getWorld().removeObject(this);// commented so the block doesnt disapear when it is placed for testing
     }
     public void act()
     {

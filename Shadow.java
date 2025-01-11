@@ -18,11 +18,11 @@ public class Shadow extends Actor
     GreenfootImage img; 
     public Shadow(String block) {
         //changing the image
-        img = new GreenfootImage(block + "Shadow.png");
+        img = new GreenfootImage(block + ".png");
         
     }
     public void hide() {
-        setImage(new GreenfootImage("clear.png"));
+        setImage(new GreenfootImage("Misc/clear.png"));
     }
 
     public void act()

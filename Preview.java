@@ -14,8 +14,6 @@ public class Preview extends Actor
     int imgHeight;
     GreenfootImage img;
     public static ArrayList<Integer> block = new ArrayList<Integer>(Arrays.asList(0,1,2,3));
-
-    
     public Preview(ArrayList block,String blockName, int x, int y) {
         this.block = block;
         setImage(new GreenfootImage("" + blockName));

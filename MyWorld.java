@@ -17,6 +17,7 @@ public class MyWorld extends World
     static ArrayList<Integer> bigLBottomRight = new ArrayList<Integer>(Arrays.asList(16,17,18,10,2));
     static ArrayList<Integer> bigLTopLeft = new ArrayList<Integer>(Arrays.asList(0,1,2,8,16));
     static ArrayList<Integer> bigLTopRight = new ArrayList<Integer>(Arrays.asList(0,1,2,10,18));
+    static ArrayList<Integer> two = new ArrayList<Integer>(Arrays.asList(0,1));
     //#  0  1  2  (3) ... up to (7)
     //# (8) 9 (10) ... up to (15)
     //#the tUp looks like this basically

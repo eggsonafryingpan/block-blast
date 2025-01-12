@@ -16,10 +16,11 @@ public class Shadow extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     GreenfootImage img; 
-    public Shadow(String block) {
+    Preview block;
+    public Shadow(String image,Preview block) {
         //changing the image
-        img = new GreenfootImage(block + ".png");
-        
+        img = new GreenfootImage(image);
+        this.block = block;
     }
     public void hide() {
         setImage(new GreenfootImage("Misc/clear.png"));
@@ -28,9 +29,9 @@ public class Shadow extends Actor
     public void act()
     {   
         //setting shadow under Preview block
-        if (Preview.gridX <= 8 - (img.getWidth() / 80) && Preview.checkFit(Preview.block)) {
+        if (block.gridX <= 8 - (img.getWidth() / 80) && block.checkFit(block.block)) {
             setImage(img);
-            setLocation((Preview.gridX * 80) + img.getWidth() / 2,(Preview.gridY * 80) + img.getHeight() / 2 + 1);
+            setLocation((block.gridX * 80) + img.getWidth() / 2,(block.gridY * 80) + img.getHeight() / 2);
         } else {
             hide();
         }

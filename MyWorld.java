@@ -19,21 +19,58 @@ public class MyWorld extends World
     //the numbers without perenthesis is the block itself
     //the array goes up to 7
     //so you go to the next row with adding 8
-    //#current bug: cannot add two blocks at once - will fix
+    public static int score;
+    //# shownScore is different from score since it slowly counts up
+    public int shownScore;
+    public int time;
     public static ArrayList<Integer> grid; //64 number array representing grid
-    public MyWorld() {    
-        super(80 * 11,80 * 8, 1); 
+    public static Preview b1;
+    public static Preview b2;
+    public static Preview b3;
+    public static int blocksLeft;
+    public MyWorld() {  
+        super(80 * 11,80 * 8, 1);
+        blocksLeft = 3;
+        time = 0;
+        score = 0;
+        shownScore = 0;
         //80 pixels for board
         grid = new ArrayList<Integer>();
         setPaintOrder(Preview.class,Block.class,Shadow.class); //Class order
         for (int i = 0; i < 64; i++) {
             grid.add(0); 
         }
-        //#(data,folder,block name, x, y)
-        addblock(two,"misc","two",800,300);
+        //#(block number(Preview), data(ArrayList),folder,block name, x, y)
+        //# block number decides which block it is out of the 3 always present
+        addblock(b1,two,"misc","two",800,300);
+        addblock(b2,two,"misc","two",800,400);
+        addblock(b3,two,"misc","two",800,500);
 
     }
-    
+
+    public void showScore() {
+        int diff = score - shownScore;
+        if (diff <= 5 && diff > 0) {
+            if (time % 15 == 0) {
+                shownScore += 1;
+            }
+        } else if (diff > 10 && diff > 0) {
+            if (time % 7 == 0) {
+                shownScore += 1;
+            }
+        } else if (diff <= 40 && diff > 0) {
+            if (time % 5 == 0) {
+                shownScore += 1;
+            }
+        } else if (diff <= 80 && diff > 0) {
+            if (time % 2 == 0) {
+                shownScore += 1;
+            }
+        }else if (diff > 80) {
+            shownScore = score - 10;
+        }
+        showText("" + shownScore, 700, 100);
+    }
     //# setting grid   not using currently
     public void addBlock(int x, int y) {
         grid.set(x + y * 8, 1);
@@ -68,9 +105,11 @@ public class MyWorld extends World
             }
             if (n == 8) {
                 clearHorizontalRow(y);
+                score += 100;
                 }
             n = 0;
         }
+        
     }
     
     //#used for clearVertical
@@ -78,6 +117,7 @@ public class MyWorld extends World
         for (int y = 0; y<8; y++) {
             grid.set(x + y * 8, 0); 
         }
+        
     }
     
     public void clearVertical() {
@@ -91,25 +131,26 @@ public class MyWorld extends World
             }
             if (a == 8) {
                 clearVerticalRow(x);
+                score += 100;
             }
             a = 0;
         }
     }
     public void act() {
+
+        showScore();
         clearHorizontal(); //check if column is full
         clearVertical(); //check if column is full
         removeObjects(getObjects(Block.class)); //clear the screen each act
         load(); // reload the screen each act
+        time++; 
     }
     
     //#add block methods
-    public void addblock(ArrayList block, String color,String blockName,int x, int y) {
-        addObject(new Preview(block, color + "/" + blockName,x,y),x,y);
-        addObject(new Shadow("" + color + "/" + blockName),x,y);
-    }
-    public void addTUp(String color, int x, int y) {
-         addObject(new Preview(tUp, color + "/tUp",x,y),x,y);
-        addObject(new Shadow("" + color + "/tUp"),x,y);
+    public void addblock(Preview b, ArrayList block, String color,String blockName,int x, int y) {
+        b = new Preview(block, color + "/" + blockName + ".png",x,y);
+        addObject(b,x,y);
+        addObject(new Shadow("" + color + "/" + blockName + ".png", b),x,y);
     }
 
 

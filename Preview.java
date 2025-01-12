@@ -4,22 +4,21 @@ import java.util.List;
 import java.util.Arrays;
 public class Preview extends Actor
 {
-    static int gridX;
-    static int gridY;
+    int gridX;
+    int gridY;
     int startX; // position on the tray
     int startY; // position on the tray
-    static int x;
-    static int y;
+    int x;
+    int y;
     int imgWidth;
     int imgHeight;
     GreenfootImage img;
-    public static ArrayList<Integer> horizontal4 = new ArrayList<Integer>(Arrays.asList(0,1,2,3));
     public static ArrayList<Integer> block = new ArrayList<Integer>(Arrays.asList(0,1,2,3));
 
     
     public Preview(ArrayList block,String blockName, int x, int y) {
         this.block = block;
-        setImage(new GreenfootImage("" + blockName + ".png"));
+        setImage(new GreenfootImage("" + blockName));
         img = getImage();
         imgWidth = img.getWidth();
         imgHeight = img.getHeight();
@@ -27,7 +26,6 @@ public class Preview extends Actor
         this.startY = y;
         img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 
     }
-    
     public void drag() {
         if (Greenfoot.mouseDragged(this)){
             img.scale(imgWidth, imgHeight); 
@@ -43,14 +41,14 @@ public class Preview extends Actor
     }
     
     //# check free square for check Fit
-    public static boolean checkSqr(int n) {
+    public boolean checkSqr(int n) {
         if (gridX + gridY * 8 + n < 64 && gridX >= 0) {
             return MyWorld.grid.get(gridX + gridY * 8 + n) == 0;
         }
         return false;
     }
     //# check if a block can fit
-    public static boolean checkFit(ArrayList block) {
+    public boolean checkFit(ArrayList block) {
         for (int i = 0; i< block.size(); i++) {
             if (!checkSqr((int)(block.get(i)))) {
                 return false;
@@ -68,6 +66,7 @@ public class Preview extends Actor
     //#putting blocks onto the grid
     public void drop() {
         if (checkFit(block)) {
+            MyWorld.score += 20;
             setGrid(block);
         }
         //removeTouching(Shadow.class); //removes the block 
@@ -77,10 +76,8 @@ public class Preview extends Actor
     {
         x = getX() - img.getWidth() / 2;
         y = getY() - img.getHeight() / 2;
-        gridX = (int)(((getX() - 40) / 80) - 1);
+        gridX = (int)(((getX() - 40) / 80));
         gridY = (int)(((getY() - 40) / 80));
-        getWorld().showText("" + x + " " + y, 200, 100);
-        getWorld().showText("" + gridX + " " + gridY, 100,100);
         drag();
     }
 }

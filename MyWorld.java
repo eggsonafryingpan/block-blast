@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class MyWorld extends World
 {   
     //# block data
+    //# ! Must be from smallest to largest !
     static ArrayList<Integer> horizontal4 = new ArrayList<Integer>(Arrays.asList(0,1,2,3)); // numbers added to top left block to create block
     static ArrayList<Integer> horizontal5 = new ArrayList<Integer>(Arrays.asList(0,1,2,3,5));
     static ArrayList<Integer> vertical4 = new ArrayList<Integer>(Arrays.asList(0,8,16,24));
@@ -22,12 +23,15 @@ public class MyWorld extends World
     static ArrayList<Integer> LHorizontalTopLeft = new ArrayList<Integer>(Arrays.asList(0,1,2,8));
     static ArrayList<Integer> LHorizontalTopRight = new ArrayList<Integer>(Arrays.asList(0,1,2,10));
     static ArrayList<Integer> two = new ArrayList<Integer>(Arrays.asList(1,0));
+    //# How it works:
+    //# Example: tTop is (0,1,2,9)
     //#  0  1  2  (3) ... up to (7)
     //# (8) 9 (10) ... up to (15)
-    //#the tUp looks like this basically
+    //#the tTop looks like this basically
     //#the numbers without perenthesis is the block itself
     //#the array goes up to 7
-    //#so you go to the next row with adding 8
+    //#so you go to the next row by adding 8
+    //#the numbers are the amount of steps from 0
     
     //instance vars
     public static int score;
@@ -40,7 +44,7 @@ public class MyWorld extends World
     public static int blocksLeft;
     public static ArrayList<Integer> grid; //#64 number array representing grid
     public static ArrayList<Color> gridColor; //# color for each square in grid
-    public Color red = new Color(200,0,0);
+    public Color red = new Color(200,0,0); // colors in RGB
     public Color blue = new Color(100,0,200);
     public MyWorld() {  
         super(80 * 11,80 * 8, 1);
@@ -71,9 +75,8 @@ public class MyWorld extends World
         //#
         //#addB#(blockData(ArrayList), color(Color(RGB)), x, y)
         addB1(tLeft,red,750,(int)(getHeight() * 0.4));
-        addB2(vertical5,blue,750,(int)(getHeight() * 0.625));
+        addB2(vertical4,blue,750,(int)(getHeight() * 0.625));
         addB2(bigLBottomLeft,blue,750,(int)(getHeight() * 0.85));
-        //addB3(LHorizontalBottomLeft,"[color]","LHorizontalBottomLeft",750,(int)(getHeight() * 0.85));
         setPaintOrder(Preview.class,Block.class,Shadow.class); //Class order
     }
     
@@ -141,7 +144,7 @@ public class MyWorld extends World
         }
     }
     
-    
+    //#used for checkGridFitAll()
     public boolean checkGridFit(Preview block, int x, int y) {
         if (x> 8 - block.imgWidth / 80) {
             return false;
@@ -157,19 +160,18 @@ public class MyWorld extends World
         }
         return true;
     }
+    
     //#check if block can fit anywhere on the grid
+    //#for checking for game over
     public boolean checkGridFitAll(Preview block) {
-        //if (block != null) {
-            for (int x = 0; x < 8; x++) {
-                for (int y = 0; y < 8; y++) {
-                    if (checkGridFit(block,x,y)) {
-                        return true;
-                    }
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                if (checkGridFit(block,x,y)) {
+                    return true;
                 }
             }
-            return false;
-        //}
-        //return false;
+        }
+        return false;
     }
     
     //# clear squares if a row is full
@@ -182,8 +184,8 @@ public class MyWorld extends World
                 }
             }
             if (n == 8) {
-                clearVertical();
-                clearHorizontalRow(y);
+                clearVertical(); //#doing clear vertical because vertical and horizontal rows can be full at once
+                clearHorizontalRow(y); 
                 score += 100;
             }
             n = 0;

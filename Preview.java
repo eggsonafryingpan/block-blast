@@ -13,8 +13,7 @@ public class Preview extends Actor
     int imgWidth;
     int imgHeight;
     GreenfootImage img;
-    //public ArrayList<Integer> block = new ArrayList<Integer>();
-    ArrayList<Integer> block;
+    public ArrayList<Integer> block;
     Color base;
     public Preview(ArrayList block, Color base, int x, int y) {
         this.block = block;

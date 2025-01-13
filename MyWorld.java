@@ -46,6 +46,7 @@ public class MyWorld extends World
     public static ArrayList<Color> gridColor; //# color for each square in grid
     public Color red = new Color(200,0,0); // colors in RGB
     public Color blue = new Color(100,0,200);
+
     public MyWorld() {  
         super(80 * 11,80 * 8, 1);
         blocksLeft = 3;
@@ -105,7 +106,7 @@ public class MyWorld extends World
         clearVertical();
         removeObjects(getObjects(Block.class)); // clear the screen each act
         load(); // reload the screen each act
-        //showText("b1: " +checkGridFitAll(b1),100,100);
+        showText("b1: " +checkGridFitAll(b1),100,100);
         //showText("b2: " +checkGridFitAll(b2),100,200);
         //showText("b3: " +checkGridFitAll(b3),100,300);
         time++; 

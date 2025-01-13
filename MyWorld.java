@@ -17,6 +17,10 @@ public class MyWorld extends World
     static ArrayList<Integer> bigLBottomRight = new ArrayList<Integer>(Arrays.asList(16,17,18,10,2));
     static ArrayList<Integer> bigLTopLeft = new ArrayList<Integer>(Arrays.asList(0,1,2,8,16));
     static ArrayList<Integer> bigLTopRight = new ArrayList<Integer>(Arrays.asList(0,1,2,10,18));
+    static ArrayList<Integer> LHorizontalBottomLeft = new ArrayList<Integer>(Arrays.asList(0,8,9,10));
+    static ArrayList<Integer> LHorizontalBottomRight = new ArrayList<Integer>(Arrays.asList(2,8,9,10));
+    static ArrayList<Integer> LHorizontalTopLeft = new ArrayList<Integer>(Arrays.asList(0,1,2,8));
+    static ArrayList<Integer> LHorizontalTopRight = new ArrayList<Integer>(Arrays.asList(0,1,2,10));
     static ArrayList<Integer> two = new ArrayList<Integer>(Arrays.asList(0,1));
     //#  0  1  2  (3) ... up to (7)
     //# (8) 9 (10) ... up to (15)
@@ -30,9 +34,9 @@ public class MyWorld extends World
     //# shownScore is different from score since it slowly counts up
     public int shownScore;
     public int time;
-    public static Preview b1;
-    public static Preview b2;
-    public static Preview b3;
+    public Preview b1;
+    public Preview b2;
+    public Preview b3;
     public static int blocksLeft;
     public static ArrayList<Integer> grid; //64 number array representing grid
 
@@ -46,8 +50,14 @@ public class MyWorld extends World
         setPaintOrder(Preview.class,Block.class,Shadow.class); //Class order
         //creating grid
         for (int i = 0; i < 64; i++) {
-            grid.add(0); 
+            if (Greenfoot.getRandomNumber(10) % 2 == 0) {
+                grid.add(0);
+            } else {
+            grid.add(0);
+            }
         }
+        
+        
         //#b1,b2,b3 is the blocks on the right
         //# For example if this is the right side:
         //#
@@ -57,17 +67,27 @@ public class MyWorld extends World
         //#     b2  (2nd block)
         //#     b3  (3rd block)
         //#
-        //#addBlock(blockNumber(Preview), data(ArrayList),folder,block name, x, y)
-        addBlock(b1,two,"misc","two",750,(int)(getHeight() * 0.4));
-        addBlock(b2,two,"misc","two",750,(int)(getHeight() * 0.625));
-        addBlock(b3,two,"misc","two",750,(int)(getHeight() * 0.85));
+        //#addB#(blockNumber(Preview), data(ArrayList),folder,block name, x, y)
+        addB1(two,"misc","two",750,(int)(getHeight() * 0.4));
+        //addB2(bigLBottomLeft,"[color]","bigLBottomLeft",750,(int)(getHeight() * 0.625));
+        //addB3(LHorizontalBottomLeft,"[color]","LHorizontalBottomLeft",750,(int)(getHeight() * 0.85));
     }
     
     //#create Preview
-    public void addBlock(Preview b, ArrayList block, String color,String blockName,int x, int y) {
-        b = new Preview(block, color + "/" + blockName + ".png",x,y);
-        addObject(b,x,y);
-        addObject(new Shadow("" + color + "/" + blockName + ".png", b),x,y);
+    public void addB1(ArrayList block, String color,String blockName,int x, int y) {
+        b1 = new Preview(block, color + "/" + blockName + ".png",x,y);
+        addObject(b1,x,y);
+        addObject(new Shadow("" + color + "/" + blockName + ".png", b1),x,y);
+    }
+    public void addB2(ArrayList block, String color,String blockName,int x, int y) {
+        b2 = new Preview(block, color + "/" + blockName + ".png",x,y);
+        addObject(b2,x,y);
+        addObject(new Shadow("" + color + "/" + blockName + ".png", b2),x,y);
+    }
+    public void addB3(ArrayList block, String color,String blockName,int x, int y) {
+        b3 = new Preview(block, color + "/" + blockName + ".png",x,y);
+        addObject(b3,x,y);
+        addObject(new Shadow("" + color + "/" + blockName + ".png", b3),x,y);
     }
     
     public void act() {
@@ -76,6 +96,9 @@ public class MyWorld extends World
         clearVertical();
         removeObjects(getObjects(Block.class)); // clear the screen each act
         load(); // reload the screen each act
+        showText("b1: " +checkGridFitAll(b1),100,100);
+        //showText("b2: " +checkGridFitAll(b2),100,200);
+        //showText("b3: " +checkGridFitAll(b3),100,300);
         time++; 
     }
 
@@ -113,9 +136,37 @@ public class MyWorld extends World
             }
         }
     }
-
     
     
+    public boolean checkGridFit(Preview block, int x, int y) {
+        if (x> 8 - block.imgWidth / 80) {
+            return false;
+        }
+        for (int i = 0; i < block.block.size(); i++) {
+            if (x + y * 8 + (int)(block.block.get(i)) < 64) { 
+                if (grid.get(x + y * 8 + (int)(block.block.get(i))) == 1) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+    //#check if block can fit anywhere on the grid
+    public boolean checkGridFitAll(Preview block) {
+        //if (block != null) {
+            for (int x = 0; x < 8; x++) {
+                for (int y = 0; y < 8; y++) {
+                    if (checkGridFit(block,x,y)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        //}
+        //return false;
+    }
     
     //# clear squares if a row is full
     public void clearHorizontal() { 

@@ -13,7 +13,7 @@ public class Preview extends Actor
     int imgWidth;
     int imgHeight;
     GreenfootImage img;
-    public static ArrayList<Integer> block = new ArrayList<Integer>(Arrays.asList(0,1,2,3));
+    public ArrayList<Integer> block = new ArrayList<Integer>();
     public Preview(ArrayList block,String blockName, int x, int y) {
         this.block = block;
         setImage(new GreenfootImage("" + blockName));
@@ -47,6 +47,9 @@ public class Preview extends Actor
     }
     //# check if a block can fit
     public boolean checkFit(ArrayList block) {
+        if (gridX > 8 - imgWidth / 80) {
+            return false;
+        }
         for (int i = 0; i< block.size(); i++) {
             if (!checkSqr((int)(block.get(i)))) {
                 return false;

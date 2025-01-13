@@ -90,6 +90,7 @@ public class MyWorld extends World
     public static Color lBlue = new Color(101, 180, 226);
     public static Color dBlue = new Color(76, 99, 217);
     public static Color purple = new Color(133, 95, 201);
+    public static Color pink = new Color(245, 125, 187);
     
     //# !!!!!!!! Do blockData.get([some integer here]) to get the block now
     public void generateBlockData() {

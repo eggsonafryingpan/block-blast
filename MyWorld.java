@@ -83,16 +83,25 @@ public class MyWorld extends World
     public static int blocksLeft;
     public static ArrayList<Integer> grid; //64 number array representing grid
     public static ArrayList<Color> gridColor; // color for each square in grid
-    public Color red = new Color(200,0,0); // colors in RGB
-    public Color blue = new Color(100,0,200);
+    public static Color red = new Color(189,66,62); // colors in RGB
+    public static Color orange = new Color(222, 125, 62);
+    public static Color yellow = new Color(228, 188, 84);
+    public static Color green = new Color(99, 177, 89);
+    public static Color lBlue = new Color(101, 180, 226);
+    public static Color dBlue = new Color(76, 99, 217);
+    public static Color purple = new Color(133, 95, 201);
     
     //# !!!!!!!! Do blockData.get([some integer here]) to get the block now
     public void generateBlockData() {
         //#Straight Lines
+        //horizontal3
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 2))));
         //horizontal4
         blockData.add(new ArrayList<Integer>(Arrays.asList(0,1,2,3)));
         //horizontal5
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0,1,2,3,4))));
+        //vertical3
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 8, 16))));
         //vertical4
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0,8,16,24))));
         //vertical5
@@ -117,6 +126,42 @@ public class MyWorld extends World
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0,1,2,10,18))));
         //# L blocks
         //LHorizontalBottomLeft
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 8, 9, 10))));
+        //LHorizontalTopLeft
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 2, 8))));
+        //LHorizontalBottomRight
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(2, 8, 9, 10))));
+        //LHorizontalTopRight
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 2, 10))));
+        //LVerticalBottomLeft
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 8, 16, 17))));
+        //LVerticalTopLeft
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 8, 16))));
+        //LVerticalBottomRight
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(1, 9, 16, 17))));
+        //LVerticalTopRight
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 9, 17))));
+        //# Diagonal 3 blocks
+        //DiagonalLeft
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 9, 18))));
+        //DiagonalRight
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(2, 9, 16))));
+        //# Square and Rectangle blocks
+        //FourSquare
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 8, 9))));
+        //NineSquare
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 2, 8, 9, 10, 16, 17, 18))));
+        //SixSquare
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1,2, 8, 9, 10))));
+        //# Z blocks
+        //ZVerticalLeft
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 8, 9, 17))));
+        //ZVerticalRight
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(1, 8, 9, 16))));
+        //ZHorizontalLeft
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 9, 10))));
+        //ZHorizontalRight
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(1, 2, 8, 9))));
         //# Continue adding everything
         blockData.add(new ArrayList<Integer>());
         blockData.add(new ArrayList<Integer>());
@@ -159,8 +204,8 @@ public class MyWorld extends World
         //#
         //#addB#(blockData.get([insert integer here]), color(Color(RGB)), x, y)
         addB1(blockData.get(2),red,750,(int)(getHeight() * 0.4));
-        addB2(blockData.get(1),blue,750,(int)(getHeight() * 0.625));
-        addB3(blockData.get(3),blue,750,(int)(getHeight() * 0.85));
+        addB2(blockData.get(1),red,750,(int)(getHeight() * 0.625));
+        addB3(blockData.get(3),red,750,(int)(getHeight() * 0.85));
         setPaintOrder(Preview.class,Block.class,Shadow.class); //Class order
     }
     

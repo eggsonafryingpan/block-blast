@@ -8,8 +8,25 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Block extends Actor
 {
+    private int color;
     GreenfootImage img;
-    public Block(Color base) {
+    public Block() {
+        color = Greenfoot.getRandomNumber(7)+1;
+        if (color == 1){
+            Color base = MyWorld.red;
+        } else if (color == 2){
+            Color base = MyWorld.orange;
+        } else if (color == 3){
+            Color base = MyWorld.yellow;
+        } else if (color == 4){
+            Color base = MyWorld.green;
+        } else if (color == 5){
+            Color base = MyWorld.lBlue;
+        } else if (color == 6){
+            Color base = MyWorld.dBlue;
+        } else{
+            Color base = MyWorld.purple;
+        }
         img = new GreenfootImage(80,80);
         img.setColor(new Color(base.getRed() + 40,base.getGreen() + 40,base.getBlue() + 40));
         img.fillRect(0,0, 80, 80); // lighter side

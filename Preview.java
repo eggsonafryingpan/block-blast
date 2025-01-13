@@ -39,7 +39,7 @@ public class Preview extends Actor
          for (int i = 0; i < block.size(); i ++) {
             int x = block.get(i) % 8 * 80;
             int y = (int)(block.get(i) / 8) * 80;
-            img.setColor(new Color(base.getRed() + 40,base.getGreen() + 40,base.getBlue() + 40));
+            img.setColor(new Color(base.getRed() + 25,base.getGreen() + 25,base.getBlue() + 25));
             img.fillRect(x,y, 80, 80); // lighter side
             img.setColor(new Color((int)(base.getRed() * 0.75),(int)(base.getGreen() * 0.75),(int)(base.getBlue() * 0.75)));
             img.fillRect(x + 8, y + 8, 72, 72); // darker side

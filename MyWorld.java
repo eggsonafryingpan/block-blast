@@ -52,6 +52,8 @@ public class MyWorld extends World
         time = 0;
         score = 0;
         shownScore = 0;
+        GreenfootImage img = new GreenfootImage("Plain Blocks/Backgroundfull/Background.png");
+        setBackground(img);
         grid = new ArrayList<Integer>();
         gridColor = new ArrayList<Color>();
         setPaintOrder(Preview.class,Block.class,Shadow.class); //Class order

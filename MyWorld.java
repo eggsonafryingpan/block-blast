@@ -14,14 +14,14 @@ public class MyWorld extends World
     static ArrayList<Integer> tBottom = new ArrayList<Integer>(Arrays.asList(1,8,9,10));
     static ArrayList<Integer> tRight = new ArrayList<Integer>(Arrays.asList(1,8,9,17));
     static ArrayList<Integer> bigLBottomLeft = new ArrayList<Integer>(Arrays.asList(0,8,16,17,18));
-    static ArrayList<Integer> bigLBottomRight = new ArrayList<Integer>(Arrays.asList(16,17,18,10,2));
-    static ArrayList<Integer> bigLTopLeft = new ArrayList<Integer>(Arrays.asList(0,1,2,8,16));
+    static ArrayList<Integer> bigLBottomRight = new ArrayList<Integer>(Arrays.asList(2,10,16,17,18));
+    static ArrayList<Integer> bigLTopLeft = new ArrayList<Integer>(Arrays.asList(0,1,8,2,16));
     static ArrayList<Integer> bigLTopRight = new ArrayList<Integer>(Arrays.asList(0,1,2,10,18));
     static ArrayList<Integer> LHorizontalBottomLeft = new ArrayList<Integer>(Arrays.asList(0,8,9,10));
     static ArrayList<Integer> LHorizontalBottomRight = new ArrayList<Integer>(Arrays.asList(2,8,9,10));
     static ArrayList<Integer> LHorizontalTopLeft = new ArrayList<Integer>(Arrays.asList(0,1,2,8));
     static ArrayList<Integer> LHorizontalTopRight = new ArrayList<Integer>(Arrays.asList(0,1,2,10));
-    static ArrayList<Integer> two = new ArrayList<Integer>(Arrays.asList(0,1));
+    static ArrayList<Integer> two = new ArrayList<Integer>(Arrays.asList(1,0));
     //#  0  1  2  (3) ... up to (7)
     //# (8) 9 (10) ... up to (15)
     //#the tUp looks like this basically
@@ -38,8 +38,10 @@ public class MyWorld extends World
     public Preview b2;
     public Preview b3;
     public static int blocksLeft;
-    public static ArrayList<Integer> grid; //64 number array representing grid
-
+    public static ArrayList<Integer> grid; //#64 number array representing grid
+    public static ArrayList<Color> gridColor; //# color for each square in grid
+    public Color red = new Color(200,0,0);
+    public Color blue = new Color(100,0,200);
     public MyWorld() {  
         super(80 * 11,80 * 8, 1);
         blocksLeft = 3;
@@ -47,14 +49,14 @@ public class MyWorld extends World
         score = 0;
         shownScore = 0;
         grid = new ArrayList<Integer>();
+        gridColor = new ArrayList<Color>();
         setPaintOrder(Preview.class,Block.class,Shadow.class); //Class order
         //creating grid
         for (int i = 0; i < 64; i++) {
-            if (Greenfoot.getRandomNumber(10) % 2 == 0) {
-                grid.add(0);
-            } else {
             grid.add(0);
-            }
+        }
+        for (int i = 0; i < 64; i++) {
+            gridColor.add(new Color(0,0,0));
         }
         
         
@@ -67,36 +69,38 @@ public class MyWorld extends World
         //#     b2  (2nd block)
         //#     b3  (3rd block)
         //#
-        //#addB#(blockNumber(Preview), data(ArrayList),folder,block name, x, y)
-        addB1(two,"misc","two",750,(int)(getHeight() * 0.4));
-        //addB2(bigLBottomLeft,"[color]","bigLBottomLeft",750,(int)(getHeight() * 0.625));
+        //#addB#(blockData(ArrayList), color(Color(RGB)), x, y)
+        addB1(tLeft,red,750,(int)(getHeight() * 0.4));
+        addB2(tBottom,blue,750,(int)(getHeight() * 0.625));
+        addB2(bigLBottomLeft,blue,750,(int)(getHeight() * 0.85));
         //addB3(LHorizontalBottomLeft,"[color]","LHorizontalBottomLeft",750,(int)(getHeight() * 0.85));
+        setPaintOrder(Preview.class,Block.class,Shadow.class); //Class order
     }
     
     //#create Preview
-    public void addB1(ArrayList block, String color,String blockName,int x, int y) {
-        b1 = new Preview(block, color + "/" + blockName + ".png",x,y);
+    public void addB1(ArrayList block, Color color,int x, int y) {
+        b1 = new Preview(block, color,x,y);
         addObject(b1,x,y);
-        addObject(new Shadow("" + color + "/" + blockName + ".png", b1),x,y);
+        addObject(new Shadow(b1,color),x,y);
     }
-    public void addB2(ArrayList block, String color,String blockName,int x, int y) {
-        b2 = new Preview(block, color + "/" + blockName + ".png",x,y);
+    public void addB2(ArrayList block, Color color,int x, int y) {
+        b2 = new Preview(block, color,x,y);
         addObject(b2,x,y);
-        addObject(new Shadow("" + color + "/" + blockName + ".png", b2),x,y);
+        addObject(new Shadow(b2,color),x,y);
     }
-    public void addB3(ArrayList block, String color,String blockName,int x, int y) {
-        b3 = new Preview(block, color + "/" + blockName + ".png",x,y);
+       public void addB3(ArrayList block, Color color,int x, int y) {
+        b3 = new Preview(block, color,x,y);
         addObject(b3,x,y);
-        addObject(new Shadow("" + color + "/" + blockName + ".png", b3),x,y);
+        addObject(new Shadow(b3,color),x,y);
     }
-    
+
     public void act() {
         showScore(750,100); // display score
         clearHorizontal(); // check if column is full
         clearVertical();
         removeObjects(getObjects(Block.class)); // clear the screen each act
         load(); // reload the screen each act
-        showText("b1: " +checkGridFitAll(b1),100,100);
+        //showText("b1: " +checkGridFitAll(b1),100,100);
         //showText("b2: " +checkGridFitAll(b2),100,200);
         //showText("b3: " +checkGridFitAll(b3),100,300);
         time++; 
@@ -131,7 +135,7 @@ public class MyWorld extends World
         for (int i = 0; i < 8; i++) {
             for (int k = 0; k < 8; k++){
                 if (grid.get(i * 8 + k) == 1) {
-                    addObject(new Block(),k * 80 + 40,i * 80 + 40);
+                    addObject(new Block(gridColor.get(i * 8 + k)),k * 80 + 40,i * 80 + 40);
                 }
             }
         }

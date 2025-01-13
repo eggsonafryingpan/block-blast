@@ -1,9 +1,11 @@
 #BlueJ class context
 comment0.target=Shadow
-comment1.params=image\ block
-comment1.target=Shadow(java.lang.String,\ Preview)
+comment1.params=block\ base
+comment1.target=Shadow(Preview,\ greenfoot.Color)
 comment2.params=
-comment2.target=void\ hide()
+comment2.target=void\ draw()
 comment3.params=
-comment3.target=void\ act()
-numComments=4
+comment3.target=void\ hide()
+comment4.params=
+comment4.target=void\ act()
+numComments=5

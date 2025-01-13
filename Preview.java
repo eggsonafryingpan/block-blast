@@ -13,16 +13,41 @@ public class Preview extends Actor
     int imgWidth;
     int imgHeight;
     GreenfootImage img;
-    public ArrayList<Integer> block = new ArrayList<Integer>();
-    public Preview(ArrayList block,String blockName, int x, int y) {
+    //public ArrayList<Integer> block = new ArrayList<Integer>();
+    ArrayList<Integer> block;
+    Color base;
+    public Preview(ArrayList block, Color base, int x, int y) {
         this.block = block;
-        setImage(new GreenfootImage("" + blockName));
-        img = getImage();
-        imgWidth = img.getWidth();
-        imgHeight = img.getHeight();
+        this.base = base; 
+        imgWidth = (calculateWidth() + 1) * 80;
+        imgHeight = (((int)(block.get(block.size() - 1)) / 8) + 1) * 80;
+        img = new GreenfootImage(imgWidth, imgHeight);
+        draw();
         this.startX = x;
         this.startY = y;
         img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 
+    }
+    //# calculating width for draw()
+    public int calculateWidth() {
+        int biggest = 0;
+        for (int i = 0; i<block.size() - 1; i++) {
+            biggest = Math.max(block.get(i) % 8,block.get(i + 1) % 8);
+        }
+        return biggest;
+    }
+    //#drawing shape
+    public void draw() {
+         for (int i = 0; i < block.size(); i ++) {
+            int x = block.get(i) % 8 * 80;
+            int y = (int)(block.get(i) / 8) * 80;
+            img.setColor(new Color(base.getRed() + 40,base.getGreen() + 40,base.getBlue() + 40));
+            img.fillRect(x,y, 80, 80); // lighter side
+            img.setColor(new Color((int)(base.getRed() * 0.75),(int)(base.getGreen() * 0.75),(int)(base.getBlue() * 0.75)));
+            img.fillRect(x + 8, y + 8, 72, 72); // darker side
+            img.setColor(base);
+            img.fillRect(x + 8, y + 8, 64,64); //middle square
+            setImage(img);
+        }
     }
     public void drag() {
         if (Greenfoot.mouseDragged(this)){
@@ -61,7 +86,11 @@ public class Preview extends Actor
     public void setGrid(ArrayList block) {
         for (int i = 0; i<block.size(); i++) {
             MyWorld.grid.set(gridX + gridY * 8 + (int)(block.get(i)),1);
-            //getWorld().showText(""+gridX + (int)(block.get(i)),400,100);
+        }
+    }
+    public void setGridColor(ArrayList block) {
+        for (int i = 0; i<block.size(); i++) {
+            MyWorld.gridColor.set(gridX + gridY * 8 + (int)(block.get(i)),base);
         }
     }
     //#putting blocks onto the grid
@@ -69,7 +98,9 @@ public class Preview extends Actor
         if (checkFit(block)) {
             MyWorld.score += 20;
             setGrid(block);
+            setGridColor(block);
         }
+        //# uncomment this to make the blocks dissapear when you place them
         //removeTouching(Shadow.class); //removes the block 
         //getWorld().removeObject(this);// commented so the block doesnt disapear when it is placed for testing
     }

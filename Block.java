@@ -12,8 +12,16 @@ public class Block extends Actor
      * Act - do whatever the Block wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public Block() {
-        setImage(new GreenfootImage("misc/block1.png"));
+    GreenfootImage img;
+    public Block(Color base) {
+        img = new GreenfootImage(80,80);
+        img.setColor(new Color(base.getRed() + 40,base.getGreen() + 40,base.getBlue() + 40));
+        img.fillRect(0,0, 80, 80); // lighter side
+        img.setColor(new Color((int)(base.getRed() * 0.75),(int)(base.getGreen() * 0.75),(int)(base.getBlue() * 0.75)));
+        img.fillRect(8, 8, 72, 72); // darker side
+        img.setColor(base);
+        img.fillRect(8, 8, 64,64); //middle square
+        setImage(img);
     }
     public void checkGrid() {
         if (MyWorld.grid.get((int)(getX() / 80) + (int)(getY() / 80) * 8) == 0) {

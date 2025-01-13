@@ -17,22 +17,37 @@ public class Shadow extends Actor
      */
     GreenfootImage img; 
     Preview block;
-    public Shadow(String image,Preview block) {
+    Color base;
+    public Shadow(Preview block, Color base) {
         //changing the image
-        img = new GreenfootImage(image);
+        img = new GreenfootImage(block.imgWidth,block.imgHeight);
         this.block = block;
+        this.base = new Color((int)(base.getRed() * 0.7),(int)(base.getGreen() * 0.7),(int)(base.getBlue() * 0.7));
+        draw();
+    }
+    //#drawing the shadow
+    private void draw() {
+         for (int i = 0; i < block.block.size(); i ++) {
+            int x = block.block.get(i) % 8 * 80;
+            int y = (int)(block.block.get(i) / 8) * 80;
+            img.setColor(new Color(base.getRed() + 40,base.getGreen() + 40,base.getBlue() + 40));
+            img.fillRect(x,y, 80, 80); // lighter side
+            img.setColor(new Color((int)(base.getRed() * 0.75),(int)(base.getGreen() * 0.75),(int)(base.getBlue() * 0.75)));
+            img.fillRect(x + 8, y + 8, 72, 72); // darker side
+            img.setColor(base);
+            img.fillRect(x + 8, y + 8, 64,64); //middle square
+        }
     }
     public void hide() {
         setImage(new GreenfootImage("Misc/clear.png"));
     }
-
     public void act()
     {   
         //setting shadow under Preview block
         if (block.gridX <= 8 - (img.getWidth() / 80) && block.checkFit(block.block)) {
             setImage(img);
             setLocation((block.gridX * 80) + img.getWidth() / 2,(block.gridY * 80) + img.getHeight() / 2);
-        } else {
+        } else { //# will not show if it is not on the grid or it doesn't fit
             hide();
         }
     }

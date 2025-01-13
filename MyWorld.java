@@ -7,8 +7,8 @@ public class MyWorld extends World
     //# block data
     static ArrayList<Integer> horizontal4 = new ArrayList<Integer>(Arrays.asList(0,1,2,3)); // numbers added to top left block to create block
     static ArrayList<Integer> horizontal5 = new ArrayList<Integer>(Arrays.asList(0,1,2,3,5));
-    static ArrayList<Integer> vertical4 = new ArrayList<Integer>(Arrays.asList(0,8,16,32));
-    static ArrayList<Integer> vertical5 = new ArrayList<Integer>(Arrays.asList(0,8,16,32,40));
+    static ArrayList<Integer> vertical4 = new ArrayList<Integer>(Arrays.asList(0,8,16,24));
+    static ArrayList<Integer> vertical5 = new ArrayList<Integer>(Arrays.asList(0,8,16,24,32));
     static ArrayList<Integer> tTop = new ArrayList<Integer>(Arrays.asList(0,1,2,9));
     static ArrayList<Integer> tLeft = new ArrayList<Integer>(Arrays.asList(0,8,9,16));
     static ArrayList<Integer> tBottom = new ArrayList<Integer>(Arrays.asList(1,8,9,10));
@@ -71,7 +71,7 @@ public class MyWorld extends World
         //#
         //#addB#(blockData(ArrayList), color(Color(RGB)), x, y)
         addB1(tLeft,red,750,(int)(getHeight() * 0.4));
-        addB2(tBottom,blue,750,(int)(getHeight() * 0.625));
+        addB2(vertical5,blue,750,(int)(getHeight() * 0.625));
         addB2(bigLBottomLeft,blue,750,(int)(getHeight() * 0.85));
         //addB3(LHorizontalBottomLeft,"[color]","LHorizontalBottomLeft",750,(int)(getHeight() * 0.85));
         setPaintOrder(Preview.class,Block.class,Shadow.class); //Class order
@@ -216,9 +216,5 @@ public class MyWorld extends World
             a = 0;
         }
     }
-    
-
-
-
-        
+            
 }

@@ -16,10 +16,10 @@ public class MyWorld extends World
     static ArrayList<Integer> LVerticalTopRight = new ArrayList<Integer>(Arrays.asList(0,1,9,17));
     
     //Z
-    static ArrayList<Integer> zHorizontalLeft = new ArrayList<Integer>(Arrays.asList(0,1,9,10));
-    static ArrayList<Integer> zHorizontalRight = new ArrayList<Integer>(Arrays.asList(1,2,8,9));
-    static ArrayList<Integer> zVerticalLeft = new ArrayList<Integer>(Arrays.asList(0,8,9,17));
-    static ArrayList<Integer> zVerticalRight = new ArrayList<Integer>(Arrays.asList(1,8,9,16));
+    //static ArrayList<Integer> zHorizontalLeft = new ArrayList<Integer>(Arrays.asList(0,1,9,10));
+    //static ArrayList<Integer> zHorizontalRight = new ArrayList<Integer>(Arrays.asList(1,2,8,9));
+    //static ArrayList<Integer> zVerticalLeft = new ArrayList<Integer>(Arrays.asList(0,8,9,17));
+    //static ArrayList<Integer> zVerticalRight = new ArrayList<Integer>(Arrays.asList(1,8,9,16));
     
     //squares
     static ArrayList<Integer> square = new ArrayList<Integer>(Arrays.asList(0,1,8,9));

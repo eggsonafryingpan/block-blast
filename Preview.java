@@ -100,8 +100,8 @@ public class Preview extends Actor
             setGridColor(block);
         }
         //# uncomment this to make the blocks dissapear when you place them
-        //removeTouching(Shadow.class); //removes the block 
-        //getWorld().removeObject(this);// commented so the block doesnt disapear when it is placed for testing
+        removeTouching(Shadow.class); //removes the block 
+        getWorld().removeObject(this);// commented so the block doesnt disapear when it is placed for testing
     }
     public void act()
     {

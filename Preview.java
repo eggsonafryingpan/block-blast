@@ -15,6 +15,7 @@ public class Preview extends Actor
     GreenfootImage img;
     public ArrayList<Integer> block;
     Color base;
+    
     public Preview(ArrayList block, Color base, int x, int y) {
         this.block = block;
         this.base = base; 
@@ -26,6 +27,9 @@ public class Preview extends Actor
         this.startY = y;
         img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 
     }
+    
+    
+    
     //# calculating width for draw()
     public int calculateWidth() {
         int biggest = 0;
@@ -48,6 +52,8 @@ public class Preview extends Actor
             setImage(img);
         }
     }
+    
+    
     public void drag() {
         if (Greenfoot.mouseDragged(this)){
             img.scale(imgWidth, imgHeight); 
@@ -81,6 +87,8 @@ public class Preview extends Actor
         }
         return true;
     }
+    
+    
     //#adding blocks to grid
     public void setGrid(ArrayList block) {
         for (int i = 0; i<block.size(); i++) {
@@ -92,16 +100,20 @@ public class Preview extends Actor
             MyWorld.gridColor.set(gridX + gridY * 8 + (int)(block.get(i)),base);
         }
     }
+    
+    
     //#putting blocks onto the grid
     public void drop() {
         if (checkFit(block)) {
             MyWorld.score += 20;
             setGrid(block);
             setGridColor(block);
-             //#removeTouching(Shadow.class); //removes the block 
+            //#removeTouching(Shadow.class); //removes the block 
             //#getWorld().removeObject(this);
         }
     }
+    
+    
     public void act()
     {
         x = getX() - img.getWidth() / 2;

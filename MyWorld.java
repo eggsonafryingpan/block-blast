@@ -29,11 +29,11 @@ public class MyWorld extends World
     static ArrayList<Integer> rectHorizontal = new ArrayList<Integer>(Arrays.asList(0,1,2,8,9,10));
     static ArrayList<Integer> rectVertical = new ArrayList<Integer>(Arrays.asList(0,1,8,9,16,17));
     
-    //small l
-    static ArrayList<Integer> smallLTopLeft = new ArrayList<Integer>(Arrays.asList(0,1,8));
-    static ArrayList<Integer> smallLTopRight = new ArrayList<Integer>(Arrays.asList(0,1,9));
-    static ArrayList<Integer> smallLBottomLeft = new ArrayList<Integer>(Arrays.asList(0,8,9));
-    static ArrayList<Integer> smallLBottomRight = new ArrayList<Integer>(Arrays.asList(1,8,9));
+    //small corer
+    static ArrayList<Integer> smallCornerTopLeft = new ArrayList<Integer>(Arrays.asList(0,1,8));
+    static ArrayList<Integer> smallCornerTopRight = new ArrayList<Integer>(Arrays.asList(0,1,9));
+    static ArrayList<Integer> smallCornerBottomLeft = new ArrayList<Integer>(Arrays.asList(0,8,9));
+    static ArrayList<Integer> smallCornerBottomRight = new ArrayList<Integer>(Arrays.asList(1,8,9));
     
     //two
     static ArrayList<Integer> twoHorizontal = new ArrayList<Integer>(Arrays.asList(0,1));
@@ -267,12 +267,16 @@ public class MyWorld extends World
         //# !!!!!!!! Do blockData.get([some integer here]) to get the block now
     public void generateBlockData() {
         //#Straight Lines
+        //horizontal2
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1))));
         //horizontal3
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 2))));
         //horizontal4
         blockData.add(new ArrayList<Integer>(Arrays.asList(0,1,2,3)));
         //horizontal5
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0,1,2,3,4))));
+        //vertical2
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 8))));
         //vertical3
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 8, 16))));
         //vertical4
@@ -335,7 +339,15 @@ public class MyWorld extends World
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 9, 10))));
         //ZHorizontalRight
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(1, 2, 8, 9))));
-        //# Continue adding everything
+        //# Small Corner blocks
+        //SmallCornerTopLeft
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 8))));
+        //SmallCornerBottomLeft
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 8, 9))));
+        //SmallCornerTopRight
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 9))));
+        //SmallCornerBottomLeft
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(1, 8, 9))));
         blockData.add(new ArrayList<Integer>());
         blockData.add(new ArrayList<Integer>());
         blockData.add(new ArrayList<Integer>());

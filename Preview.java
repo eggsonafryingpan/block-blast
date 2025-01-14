@@ -98,8 +98,8 @@ public class Preview extends Actor
             MyWorld.score += 20;
             setGrid(block);
             setGridColor(block);
-             removeTouching(Shadow.class); //removes the block 
-            getWorld().removeObject(this);
+             //#removeTouching(Shadow.class); //removes the block 
+            //#getWorld().removeObject(this);
         }
     }
     public void act()

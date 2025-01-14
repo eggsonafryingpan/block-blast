@@ -4,52 +4,6 @@ import java.util.List;
 import java.util.Arrays;
 public class MyWorld extends World
 {   
-    //# !!! move the code after the "=" into the ".add" in generateBlockData()
-    //# I already did the commented ones
-    static ArrayList<Integer> LHorizontalBottomLeft = new ArrayList<Integer>(Arrays.asList(0,8,9,10));
-    static ArrayList<Integer> LHorizontalBottomRight = new ArrayList<Integer>(Arrays.asList(2,8,9,10));
-    static ArrayList<Integer> LHorizontalTopLeft = new ArrayList<Integer>(Arrays.asList(0,1,2,8));
-    static ArrayList<Integer> LHorizontalTopRight = new ArrayList<Integer>(Arrays.asList(0,1,2,10));
-    static ArrayList<Integer> LVerticalBottomLeft = new ArrayList<Integer>(Arrays.asList(0,8,16,17));
-    static ArrayList<Integer> LVerticalBottomRight = new ArrayList<Integer>(Arrays.asList(1,9,16,17));
-    static ArrayList<Integer> LVerticalTopLeft = new ArrayList<Integer>(Arrays.asList(0,1,8,16));
-    static ArrayList<Integer> LVerticalTopRight = new ArrayList<Integer>(Arrays.asList(0,1,9,17));
-    
-    //Z
-    //static ArrayList<Integer> zHorizontalLeft = new ArrayList<Integer>(Arrays.asList(0,1,9,10));
-    //static ArrayList<Integer> zHorizontalRight = new ArrayList<Integer>(Arrays.asList(1,2,8,9));
-    //static ArrayList<Integer> zVerticalLeft = new ArrayList<Integer>(Arrays.asList(0,8,9,17));
-    //static ArrayList<Integer> zVerticalRight = new ArrayList<Integer>(Arrays.asList(1,8,9,16));
-    
-    //squares
-    static ArrayList<Integer> square = new ArrayList<Integer>(Arrays.asList(0,1,8,9));
-    static ArrayList<Integer> bigSquare = new ArrayList<Integer>(Arrays.asList(0,1,2,8,9,10,16,17,18));
-    
-    //rectangles
-    static ArrayList<Integer> rectHorizontal = new ArrayList<Integer>(Arrays.asList(0,1,2,8,9,10));
-    static ArrayList<Integer> rectVertical = new ArrayList<Integer>(Arrays.asList(0,1,8,9,16,17));
-    
-    //small corer
-    static ArrayList<Integer> smallCornerTopLeft = new ArrayList<Integer>(Arrays.asList(0,1,8));
-    static ArrayList<Integer> smallCornerTopRight = new ArrayList<Integer>(Arrays.asList(0,1,9));
-    static ArrayList<Integer> smallCornerBottomLeft = new ArrayList<Integer>(Arrays.asList(0,8,9));
-    static ArrayList<Integer> smallCornerBottomRight = new ArrayList<Integer>(Arrays.asList(1,8,9));
-    
-    //two
-    static ArrayList<Integer> twoHorizontal = new ArrayList<Integer>(Arrays.asList(0,1));
-    static ArrayList<Integer> twoVertical = new ArrayList<Integer>(Arrays.asList(0,8));
-    static ArrayList<ArrayList> blockData = new ArrayList<ArrayList>();
-    
-    //# How it works:
-    //# Example: tTop is (0,1,2,9)
-    //#  0  1  2  (3) ... up to (7)
-    //# (8) 9 (10) ... up to (15)
-    //#the tTop looks like this basically
-    //#the numbers without perenthesis is the block itself
-    //#the array goes up to 7
-    //#so you go to the next row by adding 8
-    //#the numbers are the amount of steps from 0
-    
     //instance vars
     public static int score;
     // shownScore is different from score since it slowly counts up
@@ -61,6 +15,7 @@ public class MyWorld extends World
     public static int blocksLeft;
     public static ArrayList<Integer> grid; //64 number array representing grid
     public static ArrayList<Color> gridColor; // color for each square in grid
+    static ArrayList<ArrayList> blockData = new ArrayList<ArrayList>();
     public static Color red = new Color(189,66,62); // colors in RGB
     public static Color orange = new Color(222, 125, 62);
     public static Color yellow = new Color(224, 188, 84);
@@ -91,24 +46,35 @@ public class MyWorld extends World
             gridColor.add(new Color(0,0,0));
         }
         
-        
-        //#b1,b2,b3 is the blocks on the right
-        //# For example if this is the right side:
-        //#
-        //#    score
-        //#
-        //#     b1  (1st block)
-        //#     b2  (2nd block)
-        //#     b3  (3rd block)
-        //#
         //#addB#(blockData.get([insert integer here]), color(Color(RGB)), x, y)
-        addB1(blockData.get(8),randomColor(),750,(int)(getHeight() * 0.4));
-        addB2(blockData.get(9),randomColor(),750,(int)(getHeight() * 0.625));
-        addB3(blockData.get(10),randomColor(),750,(int)(getHeight() * 0.85));
+        addB1(blockData.get(0),randomColor(),750,(int)(getHeight() * 0.4));
+        addB2(blockData.get(4),randomColor(),750,(int)(getHeight() * 0.625));
+        addB3(blockData.get(5),randomColor(),750,(int)(getHeight() * 0.85));
         setPaintOrder(Preview.class,Block.class,Shadow.class); //Class order
     }
     
-    //#create Preview
+    
+    
+
+
+    public void act() {
+        if (checkGameOver()) {
+            showText("GAME OVER\n Score: " + score, getWidth() / 2, getHeight() / 2); 
+            //#change thing
+        }
+        showScore(750,100); // display score
+        clearHorizontal(); // check if column is full
+        clearVertical();
+        removeObjects(getObjects(Block.class)); // clear the screen each act
+        load(); // reload the screen each act
+        //showText("b1: " +checkGridFitAll(b1),100,100);
+        //showText("" + blockData, 200,200);
+        //showText("b2: " +checkGridFitAll(b2),100,200);
+        //showText("b3: " +checkGridFitAll(b3),100,300);
+        time++; 
+    }
+    
+        //#create Preview
     public void addB1(ArrayList block, Color color,int x, int y) {
         b1 = new Preview(block, color,x,y);
         addObject(b1,x,y);
@@ -124,23 +90,20 @@ public class MyWorld extends World
         addObject(b3,x,y);
         addObject(new Shadow(b3,color),x,y);
     }
-
-    public void act() {
-        if (checkGameOver()) {
-            showText("GAME OVER", getWidth() / 2, getHeight() / 2); 
-            //#change thing
+    
+    //#make blocks on the board
+    public void load() {
+        for (int i = 0; i < 8; i++) {
+            for (int k = 0; k < 8; k++){
+                if (grid.get(i * 8 + k) == 1) {
+                    addObject(new Block(gridColor.get(i * 8 + k)),k * 80 + 40,i * 80 + 40);
+                }
+            }
         }
-        showScore(750,100); // display score
-        clearHorizontal(); // check if column is full
-        clearVertical();
-        removeObjects(getObjects(Block.class)); // clear the screen each act
-        load(); // reload the screen each act
-        showText("b1: " +checkGridFitAll(b1),100,100);
-        //showText("" + blockData, 200,200);
-        //showText("b2: " +checkGridFitAll(b2),100,200);
-        //showText("b3: " +checkGridFitAll(b3),100,300);
-        time++; 
     }
+    
+    
+    
     public boolean checkGameOver() {
         if (checkGridFitAll(b1)) {
             return false;
@@ -177,16 +140,10 @@ public class MyWorld extends World
         showText("" + shownScore, x, y);
     }
     
-    //#make blocks on the board
-    public void load() {
-        for (int i = 0; i < 8; i++) {
-            for (int k = 0; k < 8; k++){
-                if (grid.get(i * 8 + k) == 1) {
-                    addObject(new Block(gridColor.get(i * 8 + k)),k * 80 + 40,i * 80 + 40);
-                }
-            }
-        }
-    }
+    
+
+    
+    
     
     //#used for checkGridFitAll()
     public boolean checkGridFit(Preview block, int x, int y) {
@@ -204,7 +161,6 @@ public class MyWorld extends World
         }
         return true;
     }
-    
     //#check if block can fit anywhere on the grid
     //#for checking for game over
     public boolean checkGridFitAll(Preview block) {
@@ -220,6 +176,19 @@ public class MyWorld extends World
         return false;
     }
     
+    
+    
+    //#used for clearHorizontal
+    public void clearHorizontalRow(int y) {
+        for (int x = 0; x<8; x++) {
+            grid.set(x + y * 8, 0); 
+        }
+        //#glowing row when cleared:
+        addObject(new Glow(640,80),320,y * 80 + 40);
+        //#full screen glow:
+       addObject(new Glow(getWidth(), getHeight()), getWidth() / 2, getHeight() / 2);
+        
+    }
     //# clear squares if a row is full
     public void clearHorizontal() { 
         int n = 0;
@@ -237,17 +206,15 @@ public class MyWorld extends World
             n = 0;
         }
     }
-    //#used for clearHorizontal
-    public void clearHorizontalRow(int y) {
-        for (int x = 0; x<8; x++) {
-            grid.set(x + y * 8, 0); 
-        }
-    }
     //#used for clearVertical
     public void clearVerticalRow(int x) {
         for (int y = 0; y<8; y++) {
             grid.set(x + y * 8, 0); 
         }
+        //#glowing row when cleared:
+        addObject(new Glow(80,640),x * 80 + 40,getHeight() / 2);
+        //#full screen glow:
+        addObject(new Glow(getWidth(), getHeight()), getWidth() / 2, getHeight() / 2);
     }
     public void clearVertical() {
         int a = 0;
@@ -264,8 +231,12 @@ public class MyWorld extends World
             a = 0;
         }
     }
-        //# !!!!!!!! Do blockData.get([some integer here]) to get the block now
+    
+    
+    
+ 
     public void generateBlockData() {
+        
         //#Straight Lines
         //horizontal2
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1))));
@@ -328,8 +299,10 @@ public class MyWorld extends World
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 8, 9))));
         //NineSquare
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 2, 8, 9, 10, 16, 17, 18))));
-        //SixSquare
+        //SixSquare Horizontal
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1,2, 8, 9, 10))));
+        //SixSquare Vertical
+        blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1,8, 9, 16, 17))));
         //# Z blocks
         //ZVerticalLeft
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 8, 9, 17))));
@@ -348,14 +321,23 @@ public class MyWorld extends World
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(0, 1, 9))));
         //SmallCornerBottomLeft
         blockData.add(new ArrayList<Integer>(new ArrayList<Integer>(Arrays.asList(1, 8, 9))));
-        blockData.add(new ArrayList<Integer>());
-        blockData.add(new ArrayList<Integer>());
+    
         blockData.add(new ArrayList<Integer>());
         blockData.add(new ArrayList<Integer>());
         blockData.add(new ArrayList<Integer>());
         blockData.add(new ArrayList<Integer>());
         blockData.add(new ArrayList<Integer>());
         
+        //# How it works:
+        //# Example: tTop is (0,1,2,9)
+        //#  0  1  2  (3) ... up to (7)
+        //# (8) 9 (10) ... up to (15)
+        //#the tTop looks like this basically
+        //#the numbers without perenthesis is the block itself
+        //#the array goes up to 7
+        //#so you go to the next row by adding 8
+        //#the numbers are the amount of steps from 0
+    
     }
     public Color randomColor() {
         int color;

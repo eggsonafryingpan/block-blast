@@ -12,11 +12,12 @@ public class MyWorld extends World
     public Preview b1;
     public Preview b2;
     public Preview b3;
-    public static int blocksLeft;
+    public static int blocksOnSide;
     public static ArrayList<Integer> grid; //64 number array representing grid
     public static ArrayList<Color> gridColor; // color for each square in grid
     static ArrayList<ArrayList> blockData = new ArrayList<ArrayList>();
-    public static Color red = new Color(189,66,62); // colors in RGB
+    // colors in RGB
+    public static Color red = new Color(189,66,62); 
     public static Color orange = new Color(222, 125, 62);
     public static Color yellow = new Color(224, 188, 84);
     public static Color green = new Color(99, 177, 89);
@@ -29,7 +30,7 @@ public class MyWorld extends World
     public MyWorld() {  
         super(80 * 11,80 * 8, 1);
         generateBlockData();
-        blocksLeft = 3;
+        blocksOnSide = 3;
         time = 0;
         score = 0;
         shownScore = 0;
@@ -46,11 +47,7 @@ public class MyWorld extends World
             gridColor.add(new Color(0,0,0));
         }
         
-        //#addB#(blockData.get([insert integer here]), color(Color(RGB)), x, y)
-        addB1(blockData.get(0),randomColor(),750,(int)(getHeight() * 0.4));
-        addB2(blockData.get(4),randomColor(),750,(int)(getHeight() * 0.625));
-        addB3(blockData.get(5),randomColor(),750,(int)(getHeight() * 0.85));
-        setPaintOrder(Preview.class,Block.class,Shadow.class); //Class order
+        checkAndCreateBlocks();
     }
     
     
@@ -73,22 +70,32 @@ public class MyWorld extends World
         //showText("b3: " +checkGridFitAll(b3),100,300);
         time++; 
     }
+    private void checkAndCreateBlocks(){
+        if (blocksOnSide == 0){
+            addB1(blockData.get(randomBlock()), randomColor(), 750,(int)(getHeight() * 0.4));
+            addB2(blockData.get(randomBlock()), randomColor(), 750,(int)(getHeight() * 0.625));
+            addB3(blockData.get(randomBlock()), randomColor(), 750,(int)(getHeight() * 0.85));
+        }
+    }
     
         //#create Preview
     public void addB1(ArrayList block, Color color,int x, int y) {
         b1 = new Preview(block, color,x,y);
         addObject(b1,x,y);
         addObject(new Shadow(b1,color),x,y);
+        blocksOnSide++;
     }
     public void addB2(ArrayList block, Color color,int x, int y) {
         b2 = new Preview(block, color,x,y);
         addObject(b2,x,y);
         addObject(new Shadow(b2,color),x,y);
+        blocksOnSide++;
     }
        public void addB3(ArrayList block, Color color,int x, int y) {
         b3 = new Preview(block, color,x,y);
         addObject(b3,x,y);
         addObject(new Shadow(b3,color),x,y);
+        blocksOnSide++;
     }
     
     //#make blocks on the board
@@ -357,5 +364,87 @@ public class MyWorld extends World
         } else{
             return purple;
         }
-    }        
+    }  
+    
+    public int randomBlock(){
+        int block;
+        block = Greenfoot.getRandomNumber(38);
+        if (block == 0){
+            return 0;
+        } else if (block == 1){
+            return 1;
+        } else if (block == 2){
+            return 2;
+        } else if (block == 3){
+            return 3;
+        } else if (block == 4){
+            return 4;
+        } else if (block == 5){
+            return 5;
+        } else if (block == 6){
+            return 6;
+        } else if (block == 7){
+            return 7;
+        } else if (block == 8){
+            return 8;
+        } else if (block == 9){
+            return 9;
+        } else if (block == 10){
+            return 10;
+        } else if (block == 11){
+            return 11;
+        } else if (block == 12){
+            return 12;
+        } else if (block == 13){
+            return 13;
+        } else if (block == 14){
+            return 14;
+        } else if (block == 15){
+            return 15;
+        } else if (block == 16){
+            return 16;
+        } else if (block == 17){
+            return 17;
+        } else if (block == 18){
+            return 18;
+        } else if (block == 19){
+            return 19;
+        } else if (block == 20){
+            return 20;
+        } else if (block == 21){
+            return 21;
+        } else if (block == 22){
+            return 22;
+        } else if (block == 23){
+            return 23;
+        } else if (block == 24){
+            return 24;
+        } else if (block == 25){
+            return 25;
+        } else if (block == 26){
+            return 26;
+        } else if (block == 27){
+            return 27;
+        } else if (block == 28){
+            return 28;
+        } else if (block == 29){
+            return 29;
+        } else if (block == 30){
+            return 30;
+        } else if (block == 31){
+            return 31;
+        } else if (block == 32){
+            return 32;
+        } else if (block == 33){
+            return 33;
+        } else if (block == 34){
+            return 34;
+        } else if (block == 35){
+            return 35;
+        } else if (block == 36){
+            return 36;
+        } else{
+            return 37;
+        }
+    }
 }

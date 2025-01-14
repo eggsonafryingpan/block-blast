@@ -62,6 +62,7 @@ public class Preview extends Actor
         else if (Greenfoot.mouseDragEnded(this)) {
             if (gridX < 8 - (img.getWidth() / 160)) {
                 drop();
+                MyWorld.blocksOnSide--;
             }
             setLocation(startX,startY);
             img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 
@@ -108,8 +109,8 @@ public class Preview extends Actor
             MyWorld.score += 20;
             setGrid(block);
             setGridColor(block);
-            //#removeTouching(Shadow.class); //removes the block 
-            //#getWorld().removeObject(this);
+            removeTouching(Shadow.class); //removes the block 
+            getWorld().removeObject(this);
         }
     }
     

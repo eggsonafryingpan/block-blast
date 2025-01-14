@@ -98,10 +98,9 @@ public class Preview extends Actor
             MyWorld.score += 20;
             setGrid(block);
             setGridColor(block);
+             removeTouching(Shadow.class); //removes the block 
+            getWorld().removeObject(this);
         }
-        //# uncomment this to make the blocks dissapear when you place them
-        removeTouching(Shadow.class); //removes the block 
-        getWorld().removeObject(this);// commented so the block doesnt disapear when it is placed for testing
     }
     public void act()
     {

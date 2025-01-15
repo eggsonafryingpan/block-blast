@@ -7,7 +7,7 @@ public class MyWorld extends World
     //instance vars
     public static int score;
     // shownScore is different from score since it slowly counts up
-    public int shownScore;
+    public static int shownScore;
     public int time;
     public Preview b1;
     public Preview b2;
@@ -36,6 +36,7 @@ public class MyWorld extends World
         shownScore = 0;
         GreenfootImage img = new GreenfootImage("Plain Blocks/Backgroundfull/Background.png");
         setBackground(img);
+        addObject(new Score(), 750,120);
         grid = new ArrayList<Integer>();
         gridColor = new ArrayList<Color>();
         setPaintOrder(Preview.class,Block.class,Shadow.class); //Class order
@@ -53,19 +54,20 @@ public class MyWorld extends World
 
     public void act() {
         checkAndCreateBlocks();
-        if (checkGameOver()) {
-            showText("GAME OVER\n Score: " + score, getWidth() / 2, getHeight() / 2); 
-            //#change thing
-        }
+ 
         showScore(750,100); // display score
         clearHorizontal(); // check if column is full
         clearVertical();
         removeObjects(getObjects(Block.class)); // clear the screen each act
         load(); // reload the screen each act
-        showText("b1: " +checkGridFitAll(b1),100,100);
+        showText("" +checkGameOver(),100,100);
         //showText("" + blockData, 200,200);
         showText("b2: " +checkGridFitAll(b2),100,200);
         showText("b3: " +checkGridFitAll(b3),100,300);
+        if (checkGameOver()) {
+            showText("GAME OVER\n Score: " + score, getWidth() / 2, getHeight() / 2); 
+            //#change thing
+        }
         time++; 
     }
     private void checkAndCreateBlocks(){
@@ -110,15 +112,16 @@ public class MyWorld extends World
     
     
     public boolean checkGameOver() {
-        if (checkGridFitAll(b1) && b1 != null) {
+        if (checkGridFitAll(b1) && blocksOnSide == 1) {
             return false;
-        } else if (checkGridFitAll(b2) && b2 != null) {
+        } else if (checkGridFitAll(b2) && blocksOnSide == 2) {
             return false;
-        } else if (checkGridFitAll(b3)&& b3 != null) {
+        } else if (checkGridFitAll(b3)&& blocksOnSide == 3) {
             return false;
-        } else {
-            return true;
+        } else if (blocksOnSide == 0) {
+            return false;
         }
+        return true;
     }
 
     
@@ -142,7 +145,6 @@ public class MyWorld extends World
         }else if (diff > 80) {
             shownScore = score - 10;
         }
-        showText("" + shownScore, x, y);
     }
     
     
@@ -170,15 +172,16 @@ public class MyWorld extends World
     //#check if block can fit anywhere on the grid
     //#for checking for game over
     public boolean checkGridFitAll(Preview block) {
-        //if (block != null) {
-            for (int x = 0; x < 8; x++) {
+        if (block == null) {
+            return false;
+        }
+        for (int x = 0; x < 8; x++) {
                 for (int y = 0; y < 8; y++) {
                     if (checkGridFit(block,x,y)) {
                         return true;
                     }
                 }
-            }
-        //} 
+        }
         return false;
     }
     

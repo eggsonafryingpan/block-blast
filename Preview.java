@@ -25,7 +25,7 @@ public class Preview extends Actor
         draw();
         this.startX = x;
         this.startY = y;
-        img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 
+        img.scale((int)(imgWidth / 2.5), (int)(imgHeight / 2.5)); 
     }
     
     

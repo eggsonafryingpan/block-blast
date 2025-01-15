@@ -24,6 +24,7 @@ public class Shadow extends Actor
         this.block = block;
         this.base = new Color((int)(base.getRed() * 0.7),(int)(base.getGreen() * 0.7),(int)(base.getBlue() * 0.7));
         draw();
+        hide();
     }
     //#drawing the shadow
     private void draw() {
@@ -41,14 +42,20 @@ public class Shadow extends Actor
     public void hide() {
         setImage(new GreenfootImage("Misc/clear.png"));
     }
+    int n = 0; // makes it not do anything on the first act cycle
     public void act()
     {   
+        if (n > 0) {
         //setting shadow under Preview block
-        if (block.gridX <= 8 - (img.getWidth() / 80) && block.checkFit(block.block)) {
-            setImage(img);
-            setLocation((block.gridX * 80) + img.getWidth() / 2,(block.gridY * 80) + img.getHeight() / 2);
-        } else { //# will not show if it is not on the grid or it doesn't fit
+            if (block.gridX <= 8 - (img.getWidth() / 80) && block.checkFit(block.block)) {
+                    setLocation((block.gridX * 80) + img.getWidth() / 2,(block.gridY * 80) + img.getHeight() / 2);
+                    setImage(img);
+                } else { //# will not show if it is not on the grid or it doesn't fit
+                    hide();
+                }
+        } else {
             hide();
+            n++;
         }
     }
  

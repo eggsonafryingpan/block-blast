@@ -20,7 +20,7 @@ public class Preview extends Actor
         this.block = block;
         this.base = base; 
         imgWidth = (calculateWidth() + 1) * 80;
-        imgHeight = (((int)(block.get(block.size() - 1)) / 8) + 1) * 80;
+        imgHeight = (((int)((int)(block.get(block.size() - 1)) / 8)) + 1) * 80;
         img = new GreenfootImage(imgWidth, imgHeight);
         draw();
         this.startX = x;
@@ -32,15 +32,16 @@ public class Preview extends Actor
     
     //# calculating width for draw()
     public int calculateWidth() {
-        int biggest = 0;
+        // 2,9,16
+        int biggest = block.get(0);
         for (int i = 0; i<block.size() - 1; i++) {
-            biggest = Math.max(block.get(i) % 8,block.get(i + 1) % 8);
+            biggest = Math.max(biggest,block.get(i + 1) % 8);
         }
         return biggest;
     }
     //#drawing shape
     public void draw() {
-         for (int i = 0; i < block.size(); i ++) {
+         for (int i = 0; i < block.size();i ++) {
             int x = block.get(i) % 8 * 80;
             int y = (int)(block.get(i) / 8) * 80;
             img.setColor(new Color(base.getRed() + 25,base.getGreen() + 25,base.getBlue() + 25));
@@ -62,7 +63,6 @@ public class Preview extends Actor
         else if (Greenfoot.mouseDragEnded(this)) {
             if (gridX < 8 - (img.getWidth() / 160)) {
                 drop();
-                MyWorld.blocksOnSide--;
             }
             setLocation(startX,startY);
             img.scale((int)(imgWidth / 2), (int)(imgHeight / 2)); 
@@ -110,7 +110,9 @@ public class Preview extends Actor
             setGrid(block);
             setGridColor(block);
             removeTouching(Shadow.class); //removes the block 
+            MyWorld.blocksOnSide--;
             getWorld().removeObject(this);
+            
         }
     }
     

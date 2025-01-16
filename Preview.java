@@ -15,10 +15,10 @@ public class Preview extends Actor
     GreenfootImage img;
     public ArrayList<Integer> block;
     Color base;
-    
     public Preview(ArrayList block, Color base, int x, int y) {
         this.block = block;
         this.base = base; 
+
         imgWidth = (calculateWidth() + 1) * 80;
         imgHeight = (((int)((int)(block.get(block.size() - 1)) / 8)) + 1) * 80;
         img = new GreenfootImage(imgWidth, imgHeight);

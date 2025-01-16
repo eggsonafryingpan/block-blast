@@ -9,9 +9,9 @@ public class MyWorld extends World
     // shownScore is different from score since it slowly counts up
     public static int shownScore;
     public int time;
-    public Preview b1;
-    public Preview b2;
-    public Preview b3;
+    public static Preview b1;
+    public static Preview b2;
+    public static Preview b3;
     public static int blocksOnSide;
     public static ArrayList<Integer> grid; //64 number array representing grid
     public static ArrayList<Color> gridColor; // color for each square in grid
@@ -92,7 +92,7 @@ public class MyWorld extends World
         blocksOnSide++;
     }
        public void addB3(ArrayList block, Color color,int x, int y) {
-        b3 = new Preview(block, color,x,y);
+        b3 = new Preview(block,color,x,y);
         addObject(b3,x,y);
         addObject(new Shadow(b3,color),x,y);
         blocksOnSide++;
@@ -112,11 +112,11 @@ public class MyWorld extends World
     
     
     public boolean checkGameOver() {
-        if (checkGridFitAll(b1) && blocksOnSide == 1) {
+        if (checkGridFitAll(b1) && blocksOnSide > 0) {
             return false;
-        } else if (checkGridFitAll(b2) && blocksOnSide == 2) {
+        } else if (checkGridFitAll(b2) && blocksOnSide > 0 ) {
             return false;
-        } else if (checkGridFitAll(b3)&& blocksOnSide == 3) {
+        } else if (checkGridFitAll(b3)&& blocksOnSide > 0) {
             return false;
         } else if (blocksOnSide == 0) {
             return false;

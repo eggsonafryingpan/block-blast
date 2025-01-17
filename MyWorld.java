@@ -60,10 +60,10 @@ public class MyWorld extends World
         clearVertical();
         removeObjects(getObjects(Block.class)); // clear the screen each act
         load(); // reload the screen each act
-        showText("" +checkGameOver(),100,100);
+        //showText("" +checkGameOver(),100,100);
         //showText("" + blockData, 200,200);
-        showText("b2: " +checkGridFitAll(b2),100,200);
-        showText("b3: " +checkGridFitAll(b3),100,300);
+        //showText("b2: " +checkGridFitAll(b2),100,200);
+        //showText("b3: " +checkGridFitAll(b3),100,300);
         if (checkGameOver()) {
             showText("GAME OVER\n Score: " + score, getWidth() / 2, getHeight() / 2); 
             //#change thing
@@ -80,19 +80,19 @@ public class MyWorld extends World
     
         //#create Preview
     public void addB1(ArrayList block, Color color,int x, int y) {
-        b1 = new Preview(block, color,x,y);
+        b1 = new Preview(block, color,x,y, "b1");
         addObject(b1,x,y);
         addObject(new Shadow(b1,color),x,y);
         blocksOnSide++;
     }
     public void addB2(ArrayList block, Color color,int x, int y) {
-        b2 = new Preview(block, color,x,y);
+        b2 = new Preview(block, color,x,y,"b2");
         addObject(b2,x,y);
         addObject(new Shadow(b2,color),x,y);
         blocksOnSide++;
     }
        public void addB3(ArrayList block, Color color,int x, int y) {
-        b3 = new Preview(block,color,x,y);
+        b3 = new Preview(block,color,x,y,"b3");
         addObject(b3,x,y);
         addObject(new Shadow(b3,color),x,y);
         blocksOnSide++;

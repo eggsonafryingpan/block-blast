@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Preview
-comment1.params=block\ base\ x\ y
-comment1.target=Preview(java.util.ArrayList,\ greenfoot.Color,\ int,\ int)
+comment1.params=block\ base\ x\ y\ b
+comment1.target=Preview(java.util.ArrayList,\ greenfoot.Color,\ int,\ int,\ java.lang.String)
 comment10.params=
 comment10.target=void\ act()
 comment2.params=

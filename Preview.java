@@ -15,10 +15,11 @@ public class Preview extends Actor
     GreenfootImage img;
     public ArrayList<Integer> block;
     Color base;
-    public Preview(ArrayList block, Color base, int x, int y) {
+    String b;
+    public Preview(ArrayList block, Color base, int x, int y, String b) {
         this.block = block;
         this.base = base; 
-
+        this.b = b;
         imgWidth = (calculateWidth() + 1) * 80;
         imgHeight = (((int)((int)(block.get(block.size() - 1)) / 8)) + 1) * 80;
         img = new GreenfootImage(imgWidth, imgHeight);
@@ -71,7 +72,7 @@ public class Preview extends Actor
     
     //# check free square for check Fit
     public boolean checkSqr(int n) {
-        if (gridX + gridY * 8 + n < 64 && gridX >= 0) {
+        if (gridX + gridY * 8 + n < 64 && gridX >= 0 && gridY >= 0) {
             return MyWorld.grid.get(gridX + gridY * 8 + n) == 0;
         }
         return false;
@@ -111,6 +112,13 @@ public class Preview extends Actor
             setGridColor(block);
             removeTouching(Shadow.class); //removes the block 
             MyWorld.blocksOnSide--;
+            if (b.equals("b1")) {
+                MyWorld.b1 = null;
+            } else if (b.equals("b2")) {
+                MyWorld.b2 = null;
+            } else if (b.equals("b3")) {
+                MyWorld.b3 = null;
+            }
             getWorld().removeObject(this);
             
         }
@@ -121,8 +129,8 @@ public class Preview extends Actor
     {
         x = getX() - img.getWidth() / 2;
         y = getY() - img.getHeight() / 2;
-        gridX = (int)(((getX() - 40) / 80));
-        gridY = (int)(((getY() - 40) / 80));
+        gridX = (int)(((x) / 80));
+        gridY = (int)(((y) / 80));
         drag();
     }
 }
